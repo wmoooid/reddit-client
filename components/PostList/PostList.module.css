@@ -1,0 +1,17 @@
+.heading {
+  font-size: 1.75rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.list {
+  margin-top: 3rem;
+  border: 1px solid var(--grey93);
+  border-radius: 0.25rem;
+}
+
+.divider {
+  display: block;
+  height: 1px;
+  background-color: var(--grey93);
+}
