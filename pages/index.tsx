@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import { Header } from '../components/Header/Header';
-import { PostList } from '../components/PostList/PostList';
-import styles from '../styles/Index.module.css';
+import { Header } from '@/components/Header/Header';
+import { PostList } from '@/components/PostList/PostList';
+import styles from '@/styles/Index.module.css';
 
 const Index: NextPage = () => {
   return (

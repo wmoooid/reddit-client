@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
 import React from 'react';
-import { PostItem } from './PostItem/PostItem';
 import styles from './PostList.module.css';
+import { getCookie } from 'cookies-next';
+import { ListingsResponseType } from '@/types/listings';
+import { PostItem } from './PostItem/PostItem';
 
 export const PostList: React.FC = () => {
   const token = getCookie('token');
 
-  const [posts, setPosts] = React.useState<any[]>([]);
+  const [posts, setPosts] = React.useState([] as ListingsResponseType);
 
   React.useEffect(() => {
-    async function load() {
+    (async () => {
       try {
         const {
           data: {
@@ -23,9 +24,7 @@ export const PostList: React.FC = () => {
       } catch (error) {
         console.log(error);
       }
-    }
-
-    load();
+    })();
   }, []);
 
   return (

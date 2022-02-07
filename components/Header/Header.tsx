@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
           href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=http://localhost:3000/api/auth&duration=permanent&scope=read submit identity`}>
           <span className={styles.userAvatar}>
             {data.avatarSrc ? (
-              <Image src={data.avatarSrc} alt='Post preview' layout='fill' objectFit='cover' />
+              <Image src={data.avatarSrc} alt='User avatar' layout='fill' objectFit='cover' />
             ) : (
               <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
                 <path

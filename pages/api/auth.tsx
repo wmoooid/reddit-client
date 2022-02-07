@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cors from 'cors';
-import initMiddleware from '../../lib/init-middleware';
+import initMiddleware from '@/lib/init-middleware';
 import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 
