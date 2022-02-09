@@ -1,20 +1,19 @@
 import React from 'react';
-import Image from 'next/image';
 import styles from './PostPreview.module.css';
-import nsfw from '@/public/nsfw.png';
 
 interface PostPreviewProps {
+  isPostPage?: boolean;
   preview: string;
 }
 
-export const PostPreview: React.FC<PostPreviewProps> = ({ preview }) => {
+export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false, preview }) => {
   return (
-    <div className={styles.preview}>
-      {preview == 'nsfw' ? (
-        <Image src={nsfw} alt='nsfw image' layout='fill' objectFit='cover' />
+    <>
+      {isPostPage ? (
+        <img className={styles.previewPage} src={preview} alt='Post preview' />
       ) : (
-        <Image src={preview} alt='Post preview' layout='fill' objectFit='cover' />
+        <img className={styles.preview} src={preview} alt='Post preview' />
       )}
-    </div>
+    </>
   );
 };

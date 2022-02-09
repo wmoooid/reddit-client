@@ -1,14 +1,21 @@
-/* Preview */
+/* PostList */
 .preview {
-  position: relative;
   width: 12rem;
   height: 7rem;
   border-radius: 0.25rem;
   overflow: hidden;
+  object-fit: cover;
 }
 
 .previewImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* PostPage */
+.previewPage {
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
 }

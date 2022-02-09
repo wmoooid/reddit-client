@@ -36,4 +36,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .env.local
-types/listings.d.ts
+pages/api/resp.tsx

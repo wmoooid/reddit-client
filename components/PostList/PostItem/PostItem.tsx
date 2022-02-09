@@ -6,26 +6,49 @@ import { PostPreview } from './PostPreview/PostPreview';
 import { MenuButton } from './MenuButton/MenuButton';
 
 interface PostItemProps {
+  isPostPage?: boolean;
   title: string;
   subreddit: string;
   creatorDate: number;
   preview: string;
   karmaCount: number;
+  href?: string;
 }
 
-export const PostItem: React.FC<PostItemProps> = ({ title, subreddit, creatorDate, preview, karmaCount }) => {
+export const PostItem: React.FC<PostItemProps> = ({
+  isPostPage = false,
+  title,
+  subreddit,
+  creatorDate,
+  preview,
+  karmaCount,
+  href,
+}) => {
   return (
-    <li className={styles.box}>
-      <div className={styles.leftSide}>
-        <KarmaCounter karmaCount={karmaCount} />
-        <span className={styles.divider}></span>
-        <PostDetails title={title} subreddit={subreddit} creatorDate={creatorDate} />
-      </div>
-      <div className={styles.rightSide}>
-        <PostPreview preview={preview} />
-        <span className={styles.space}></span>
-        <MenuButton />
-      </div>
-    </li>
+    <>
+      {isPostPage ? (
+        <section className={styles.boxPage}>
+          <div className={styles.topSide}>
+            <KarmaCounter karmaCount={karmaCount} />
+            <span className={styles.dividerPage}></span>
+            <PostDetails isPostPage={isPostPage} title={title} subreddit={subreddit} creatorDate={creatorDate} href={href} />
+          </div>
+          <PostPreview isPostPage={isPostPage} preview={preview} />
+        </section>
+      ) : (
+        <li className={styles.box}>
+          <div className={styles.leftSide}>
+            <KarmaCounter karmaCount={karmaCount} />
+            <span className={styles.divider}></span>
+            <PostDetails title={title} subreddit={subreddit} creatorDate={creatorDate} href={href} />
+          </div>
+          <div className={styles.rightSide}>
+            <PostPreview preview={preview} />
+            <span className={styles.space}></span>
+            <MenuButton />
+          </div>
+        </li>
+      )}
+    </>
   );
 };

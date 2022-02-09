@@ -40,6 +40,7 @@ export const PostList: React.FC = () => {
               creatorDate={post.data.created}
               preview={post.data.thumbnail}
               karmaCount={post.data.ups}
+              href={post.data.id}
             />
             <span className={styles.divider}></span>
           </>
