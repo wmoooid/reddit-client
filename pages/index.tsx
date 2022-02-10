@@ -1,11 +1,16 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import { Header } from '@/components/Header/Header';
 import { PostList } from '@/components/PostList/PostList';
 import styles from '@/styles/Index.module.css';
+import { ListingsResponseType } from '@/types/listings';
 
-const Index: NextPage = () => {
+interface IndexPageProps {
+  data: ListingsResponseType;
+}
+
+const Index: NextPage<IndexPageProps> = ({ data }) => {
   return (
     <>
       <Head>
@@ -20,12 +25,24 @@ const Index: NextPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <div className={styles.container}>
-          <PostList />
-        </div>
+        <div className={styles.container}>{data.children && <PostList posts={data.children} />}</div>
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const response = await fetch('https:/oauth.reddit.com/hot', {
+      method: 'get',
+      headers: { Authorization: `bearer ${global.__token__}` },
+    });
+    const { data } = await response.json();
+    return { props: { data } };
+  } catch (error) {
+    console.log(error);
+    return { props: { data: { null: true } } };
+  }
 };
 
 export default Index;

@@ -1,4 +1,4 @@
-export type ListingsResponseType = {
+export type ListingsResponseChildrenType = {
   kind: string;
   data: {
     approved_at_utc: null;
@@ -177,3 +177,12 @@ export type ListingsResponseType = {
     is_video: boolean;
   };
 }[];
+
+export type ListingsResponseType = {
+  after: string | null;
+  before: string | null;
+  children: ListingsResponseChildrenType;
+  dist: number;
+  geo_filter: string | null;
+  modhash: string | null;
+};

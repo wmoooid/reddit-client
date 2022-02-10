@@ -1,51 +1,17 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import { Header } from '@/components/Header/Header';
 import styles from '@/styles/Index.module.css';
-import axios from 'axios';
-import { getCookie } from 'cookies-next';
-import { useRouter } from 'next/router';
 import { PostItem } from '@/components/PostList/PostItem/PostItem';
 import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
 
-const PostPage: NextPage = () => {
-  const router = useRouter();
-  const { pid } = router.query;
+interface PostPageProps {
+  post: CommentsResponsePostInfoType;
+  comments: CommentsResponseCommentsType;
+}
 
-  const token = getCookie('token');
-
-  const [postInfo, setPostInfo] = React.useState({} as CommentsResponsePostInfoType);
-  // const [comments, setComments] = React.useState({} as CommentsResponseCommentsType);
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    async function load() {
-      try {
-        const {
-          data: [post, comment],
-        } = await axios.get(`https:/oauth.reddit.com/comments/${pid}`, {
-          headers: { Authorization: `bearer ${token}` },
-        });
-        const [postInfo] = post.data.children;
-        setPostInfo(postInfo);
-        // setComments(data[1]);
-        // console.log('data', data);
-        // console.log('postInfo', postInfo);
-        // console.log('comments', comments);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    pid === undefined ? () => {} : load();
-  }, [pid]);
-
-  // React.useEffect(() => {
-  //   console.log(postInfo);
-  // }, [postInfo]);
-
+const PostPage: NextPage<PostPageProps> = ({ post, comments }) => {
   return (
     <>
       <Head>
@@ -61,22 +27,31 @@ const PostPage: NextPage = () => {
       <Header />
       <main className={styles.main}>
         <div className={styles.container}>
-          {isLoading ? (
-            <div>Loading...</div>
-          ) : (
-            <PostItem
-              isPostPage={true}
-              title={postInfo.data.title}
-              subreddit={postInfo.data.subreddit}
-              creatorDate={postInfo.data.created}
-              preview={postInfo.data.preview.images[0].source.url.replaceAll('amp;', '')}
-              karmaCount={postInfo.data.ups}
-            />
-          )}
+          <PostItem
+            isPostPage={true}
+            title={post.data.title}
+            subreddit={post.data.subreddit}
+            creatorDate={post.data.created}
+            preview={post.data.preview.images[0].source.url.replaceAll('amp;', '')}
+            karmaCount={post.data.ups}
+          />
         </div>
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { pid } = context.query;
+
+  const response = await fetch(`https:/oauth.reddit.com/comments/${pid}`, {
+    method: 'get',
+    headers: { Authorization: `bearer ${global.__token__}` },
+  });
+  const [postResponse, commentsResponse] = await response.json();
+  const [post] = postResponse.data.children;
+  const [comments] = commentsResponse.data.children;
+  return { props: { post, comments } };
 };
 
 export default PostPage;

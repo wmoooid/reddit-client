@@ -1,32 +1,13 @@
-import axios from 'axios';
 import React from 'react';
 import styles from './PostList.module.css';
-import { getCookie } from 'cookies-next';
-import { ListingsResponseType } from '@/types/listings';
+import { ListingsResponseChildrenType } from '@/types/listings';
 import { PostItem } from './PostItem/PostItem';
 
-export const PostList: React.FC = () => {
-  const token = getCookie('token');
+interface PostListProps {
+  posts: ListingsResponseChildrenType;
+}
 
-  const [posts, setPosts] = React.useState([] as ListingsResponseType);
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const {
-          data: {
-            data: { children },
-          },
-        } = await axios.get('https:/oauth.reddit.com/hot', {
-          headers: { Authorization: `bearer ${token}` },
-        });
-        setPosts(children);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
+export const PostList: React.FC<PostListProps> = ({ posts }) => {
   return (
     <>
       <h2 className={styles.heading}>Hot</h2>
