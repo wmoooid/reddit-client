@@ -1,7 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import { Header } from '@/components/Header/Header';
 import { PostList } from '@/components/PostList/PostList';
 import styles from '@/styles/Index.module.css';
 import { ListingsResponseType } from '@/types/listings';
@@ -23,7 +22,6 @@ const Index: NextPage<IndexPageProps> = ({ data }) => {
           rel='stylesheet'
         />
       </Head>
-      <Header />
       <main className={styles.main}>
         <div className={styles.container}>{data.children && <PostList posts={data.children} />}</div>
       </main>

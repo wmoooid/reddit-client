@@ -1,7 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import { Header } from '@/components/Header/Header';
 import styles from '@/styles/Index.module.css';
 import { PostItem } from '@/components/PostList/PostItem/PostItem';
 import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
@@ -24,7 +23,6 @@ const PostPage: NextPage<PostPageProps> = ({ post, comments }) => {
           rel='stylesheet'
         />
       </Head>
-      <Header />
       <main className={styles.main}>
         <div className={styles.container}>
           <PostItem
@@ -43,7 +41,6 @@ const PostPage: NextPage<PostPageProps> = ({ post, comments }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { pid } = context.query;
-
   const response = await fetch(`https:/oauth.reddit.com/comments/${pid}`, {
     method: 'get',
     headers: { Authorization: `bearer ${global.__token__}` },

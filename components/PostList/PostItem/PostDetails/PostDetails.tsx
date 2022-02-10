@@ -1,5 +1,5 @@
+import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import styles from './PostDetails.module.css';
 
@@ -12,11 +12,8 @@ interface PostDetailsProps {
 }
 
 export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, title, subreddit, creatorDate, href }) => {
-  const unformattedDate = new Date(creatorDate);
-  const options: any = { month: 'long', day: 'numeric' };
-  const formatedDate = unformattedDate.toLocaleDateString('en-GB', options);
-
-  const router = useRouter();
+  const unformattedDate = new Date(creatorDate * 1000);
+  const formatedDate = formatDistanceToNow(unformattedDate, { addSuffix: true });
 
   return (
     <>
@@ -26,13 +23,13 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, ti
             <small className={styles.subreddit}>{subreddit}</small>
             <small className={styles.creatorDate}>{formatedDate}</small>
           </div>
-          <button className={styles.button} type='button' onClick={() => router.back()}>
+          <Link href={'/'} shallow={true}>
             <h1 className={styles.titlePage}>{title}</h1>
-          </button>
+          </Link>
         </div>
       ) : (
         <div className={styles.postDetails}>
-          <Link href={`/post/${href}`}>
+          <Link href={`/post/${href}`} shallow={true}>
             <h3 className={styles.title}>{title}</h3>
           </Link>
           <div className={styles.creatorInfo}>
