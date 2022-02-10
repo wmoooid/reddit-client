@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   axios
     .post(
       'https://www.reddit.com/api/v1/access_token',
-      `grant_type=authorization_code&code=${req.query.code}&redirect_uri=https://reddit-client-kohl.vercel.app/api/auth`,
+      `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.REDIRECT_URL}`,
       {
         auth: { username: `${process.env.CLIENT_ID}`, password: `${process.env.CLIENT_SECRET}` },
         headers: { 'Content-type': 'application/x-www-form-urlencoded' },

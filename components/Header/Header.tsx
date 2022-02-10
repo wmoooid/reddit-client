@@ -75,7 +75,7 @@ export const Header: React.FC = () => {
         <span className={styles.allertsIcon}></span>
         <a
           className={styles.profile}
-          href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=https://reddit-client-kohl.vercel.app/api/auth&duration=permanent&scope=read submit identity`}>
+          href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=${process.env.REDIRECT_URL}&duration=permanent&scope=read submit identity`}>
           <span className={styles.userAvatar}>
             {data.avatarSrc ? (
               <Image src={data.avatarSrc} alt='User avatar' layout='fill' objectFit='cover' />
