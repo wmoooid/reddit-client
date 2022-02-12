@@ -45,6 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     method: 'get',
     headers: { Authorization: `bearer ${global.__token__}` },
   });
+  console.log('PID', global.__token__);
   const [postResponse, commentsResponse] = await response.json();
   const [post] = postResponse.data.children;
   const [comments] = commentsResponse.data.children;

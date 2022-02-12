@@ -35,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       method: 'get',
       headers: { Authorization: `bearer ${global.__token__}` },
     });
+    console.log('INDEX', global.__token__);
     const { data } = await response.json();
     return { props: { data } };
   } catch (error) {
