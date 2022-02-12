@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     )
     .then(({ data }) => {
       setCookies('token', data['access_token'], { req, res });
-      globalThis.__token__ = data['access_token'];
+      global.__token__ = data['access_token'];
       res.redirect('/');
     })
     .catch(console.log);
