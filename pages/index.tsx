@@ -31,10 +31,9 @@ const Index: NextPage<IndexPageProps> = ({ data }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    console.log('INDEX', global.__token__);
     const response = await fetch('https:/oauth.reddit.com/hot', {
       method: 'get',
-      headers: { Authorization: `bearer ${global.__token__}` },
+      headers: { Authorization: `bearer ${globalThis.__token__}` },
     });
     const { data } = await response.json();
     return { props: { data } };
