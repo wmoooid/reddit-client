@@ -41,11 +41,11 @@ const PostPage: NextPage<PostPageProps> = ({ post, comments }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { pid } = context.query;
+  console.log('PID', global.__token__);
   const response = await fetch(`https:/oauth.reddit.com/comments/${pid}`, {
     method: 'get',
     headers: { Authorization: `bearer ${global.__token__}` },
   });
-  console.log('PID', global.__token__);
   const [postResponse, commentsResponse] = await response.json();
   const [post] = postResponse.data.children;
   const [comments] = commentsResponse.data.children;
