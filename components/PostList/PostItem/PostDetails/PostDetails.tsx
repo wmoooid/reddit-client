@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import styles from './PostDetails.module.css';
 
@@ -15,6 +16,8 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, ti
   const unformattedDate = new Date(creatorDate * 1000);
   const formatedDate = formatDistanceToNow(unformattedDate, { addSuffix: true });
 
+  const router = useRouter();
+
   return (
     <>
       {isPostPage ? (
@@ -23,7 +26,7 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, ti
             <small className={styles.subreddit}>{subreddit}</small>
             <small className={styles.creatorDate}>{formatedDate}</small>
           </div>
-          <Link href={'/'} shallow={true}>
+          <Link href={'/'} shallow={true} scroll={false}>
             <h1 className={styles.titlePage}>{title}</h1>
           </Link>
         </div>
