@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 3.5rem;
+  min-width: 3rem;
 }
 
 .karmaUp,

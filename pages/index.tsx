@@ -1,15 +1,42 @@
-import type { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import React from 'react';
 import { PostList } from '@/components/PostList/PostList';
 import styles from '@/styles/Index.module.css';
 import { ListingsResponseType } from '@/types/listings';
+import { getCookie } from 'cookies-next';
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import React from 'react';
+import useSWR from 'swr';
 
 interface IndexPageProps {
   data: ListingsResponseType;
 }
 
-const Index: NextPage<IndexPageProps> = ({ data }) => {
+type FetcherArgs = [string, object];
+const fetcher = (...args: FetcherArgs) => fetch(...args).then((res) => res.json());
+
+const Index: NextPage<IndexPageProps> = () => {
+  // const router = useRouter();
+  // if (router.query.code) {
+  //   const token = getCookie(`token_${router.query.code}`);
+  //   localStorage.setItem('__token__', `${token}`);
+  // }
+  // React.useEffect(() => {
+  //   const __token__ = localStorage.getItem('__token__');
+  // }, [])
+
+  const token = getCookie(`token`);
+
+  const { data, error } = useSWR(
+    [
+      'https:/oauth.reddit.com/hot',
+      {
+        method: 'get',
+        headers: { Authorization: `bearer ${token}` },
+      },
+    ],
+    fetcher,
+  );
+
   return (
     <>
       <Head>
@@ -23,24 +50,10 @@ const Index: NextPage<IndexPageProps> = ({ data }) => {
         />
       </Head>
       <main className={styles.main}>
-        <div className={styles.container}>{data.children && <PostList posts={data.children} />}</div>
+        <div className={styles.container}>{data?.data?.children && <PostList posts={data.data.children} />}</div>
       </main>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const response = await fetch('https:/oauth.reddit.com/hot', {
-      method: 'get',
-      headers: { Authorization: `bearer ${global.__token__}` },
-    });
-    const { data } = await response.json();
-    return { props: { data } };
-  } catch (error) {
-    console.log(error);
-    return { props: { data: { null: true } } };
-  }
 };
 
 export default Index;

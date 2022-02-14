@@ -1,8 +1,8 @@
-import axios from 'axios';
 import Cors from 'cors';
 import initMiddleware from '@/lib/init-middleware';
 import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
+import fetch from 'node-fetch';
 
 const cors = initMiddleware(
   Cors({
@@ -10,21 +10,37 @@ const cors = initMiddleware(
   }),
 );
 
+interface ResponseDataType {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res);
-  axios
-    .post(
-      'https://www.reddit.com/api/v1/access_token',
-      `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.REDIRECT_URL}`,
-      {
-        auth: { username: `${process.env.CLIENT_ID}`, password: `${process.env.CLIENT_SECRET}` },
-        headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-      },
-    )
-    .then(({ data }) => {
-      setCookies('token', data['access_token'], { req, res });
-      global.__token__ = data['access_token'];
-      res.redirect('/');
-    })
-    .catch(console.log);
+
+  const form = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code: `${req.query.code}`,
+    redirect_uri: `${process.env.REDIRECT_URL}`,
+  });
+
+  const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
+
+  try {
+    const response = await fetch('https://www.reddit.com/api/v1/access_token', {
+      method: 'POST',
+      headers: { Authorization: `Basic ${credentials}` },
+      body: form,
+    });
+    const data = (await response.json()) as ResponseDataType;
+    console.log(data);
+    // setCookies(`token_${req.query.code}`, `${data['access_token']}`, { req, res });
+    setCookies(`token`, `${data['access_token']}`, { req, res });
+    res.redirect(`/`);
+  } catch (error) {
+    console.log(error);
+  }
 }

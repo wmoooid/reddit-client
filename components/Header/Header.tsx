@@ -1,29 +1,27 @@
 import styles from './Header.module.css';
 import React from 'react';
-import axios from 'axios';
 import Image from 'next/image';
 import { getCookie } from 'cookies-next';
+import useSWR from 'swr';
 
-interface IUserData {
-  username?: string;
-  avatarSrc?: string;
-}
+type FetcherArgs = [string, object];
+const fetcher = (...args: FetcherArgs) => fetch(...args).then((res) => res.json());
 
 export const Header: React.FC = () => {
   const token = getCookie('token');
 
-  const [data, setData] = React.useState<IUserData>({});
-  React.useEffect(() => {
-    axios
-      .get('https://oauth.reddit.com/api/v1/me', {
+  const { data, error } = useSWR(
+    [
+      'https://oauth.reddit.com/api/v1/me',
+      {
+        method: 'get',
         headers: { Authorization: `bearer ${token}` },
-      })
-      .then((resp) => {
-        const userData = resp.data;
-        setData({ username: userData.name, avatarSrc: userData.icon_img });
-      })
-      .catch(console.log);
-  }, [token]);
+      },
+    ],
+    fetcher,
+  );
+
+  console.log(data);
 
   return (
     <header className={styles.box}>
@@ -77,8 +75,8 @@ export const Header: React.FC = () => {
           className={styles.profile}
           href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=${process.env.REDIRECT_URL}&duration=permanent&scope=read submit identity`}>
           <span className={styles.userAvatar}>
-            {data.avatarSrc ? (
-              <Image src={data.avatarSrc} alt='User avatar' layout='fill' objectFit='cover' />
+            {data ? (
+              <Image src={data.icon_img} alt='User avatar' layout='fill' objectFit='cover' />
             ) : (
               <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
                 <path
@@ -92,7 +90,7 @@ export const Header: React.FC = () => {
               </svg>
             )}
           </span>
-          <span className={styles.userName}>{data.username ? data.username : 'Log in'}</span>
+          <span className={styles.userName}>{data ? data.name : 'Log in'}</span>
         </a>
       </div>
     </header>

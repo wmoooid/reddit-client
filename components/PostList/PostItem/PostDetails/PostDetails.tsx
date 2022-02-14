@@ -26,9 +26,11 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, ti
             <small className={styles.subreddit}>{subreddit}</small>
             <small className={styles.creatorDate}>{formatedDate}</small>
           </div>
-          <Link href={'/'} shallow={true} scroll={false}>
-            <h1 className={styles.titlePage}>{title}</h1>
-          </Link>
+          {/* <Link href={'/'} shallow={true} scroll={false}> */}
+          <h1 onClick={() => router.back()} className={styles.titlePage}>
+            {title}
+          </h1>
+          {/* </Link> */}
         </div>
       ) : (
         <div className={styles.postDetails}>

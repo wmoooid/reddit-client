@@ -6,6 +6,11 @@ interface KarmaCounterProps {
 }
 
 export const KarmaCounter: React.FC<KarmaCounterProps> = ({ karmaCount }) => {
+  const formatKarmaCount = new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    compactDisplay: 'short',
+  }).format(karmaCount);
+
   return (
     <div className={styles.karmaCounter}>
       <button className={styles.karmaUp}>
@@ -18,7 +23,7 @@ export const KarmaCounter: React.FC<KarmaCounterProps> = ({ karmaCount }) => {
           />
         </svg>
       </button>
-      <strong className={styles.karmaCount}>{karmaCount}</strong>
+      <strong className={styles.karmaCount}>{formatKarmaCount}</strong>
       <button className={styles.karmaDown}>
         <svg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
