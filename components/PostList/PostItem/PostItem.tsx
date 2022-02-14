@@ -12,7 +12,7 @@ interface PostItemProps {
   subreddit: string;
   creatorDate: number;
   preview: string;
-  video: string;
+  video?: string | undefined;
   karmaCount: number;
   href?: string;
 }
@@ -20,11 +20,11 @@ interface PostItemProps {
 export const PostItem: React.FC<PostItemProps> = ({
   isPostPage = false,
   isVideo = false,
+  video = undefined,
   title,
   subreddit,
   creatorDate,
   preview,
-  video,
   karmaCount,
   href,
 }) => {
