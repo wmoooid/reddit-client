@@ -28,7 +28,7 @@ const Index: NextPage<IndexPageProps> = () => {
 
   const { data, error } = useSWR(
     [
-      'https:/oauth.reddit.com/hot',
+      'https://oauth.reddit.com/hot',
       {
         method: 'get',
         headers: { Authorization: `bearer ${token}` },
@@ -36,6 +36,8 @@ const Index: NextPage<IndexPageProps> = () => {
     ],
     fetcher,
   );
+
+  console.log(data);
 
   return (
     <>

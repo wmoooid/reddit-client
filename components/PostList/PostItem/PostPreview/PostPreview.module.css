@@ -1,5 +1,6 @@
 /* PostList */
 .preview {
+  flex: none;
   width: 12rem;
   height: 7rem;
   border-radius: 0.25rem;

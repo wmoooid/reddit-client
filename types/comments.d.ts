@@ -146,7 +146,20 @@ export type CommentsResponsePostInfoType = {
     discussion_type: null;
     num_comments: number;
     send_replies: boolean;
-    media: null;
+    media: {
+      reddit_video: {
+        bitrate_kbps: number;
+        fallback_url: string;
+        height: number;
+        width: number;
+        scrubber_media_url: string;
+        dash_url: string;
+        duration: number;
+        hls_url: string;
+        is_gif: boolean;
+        transcoding_status: string;
+      };
+    };
     contest_mode: boolean;
     author_patreon_flair: boolean;
     author_flair_text_color: string;

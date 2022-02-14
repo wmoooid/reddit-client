@@ -21,8 +21,6 @@ export const Header: React.FC = () => {
     fetcher,
   );
 
-  console.log(data);
-
   return (
     <header className={styles.box}>
       <div className={styles.leftSide}>

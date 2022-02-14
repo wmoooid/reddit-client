@@ -7,20 +7,24 @@ import { MenuButton } from './MenuButton/MenuButton';
 
 interface PostItemProps {
   isPostPage?: boolean;
+  isVideo?: boolean;
   title: string;
   subreddit: string;
   creatorDate: number;
   preview: string;
+  video: string;
   karmaCount: number;
   href?: string;
 }
 
 export const PostItem: React.FC<PostItemProps> = ({
   isPostPage = false,
+  isVideo = false,
   title,
   subreddit,
   creatorDate,
   preview,
+  video,
   karmaCount,
   href,
 }) => {
@@ -33,17 +37,17 @@ export const PostItem: React.FC<PostItemProps> = ({
             <span className={styles.dividerPage}></span>
             <PostDetails isPostPage={isPostPage} title={title} subreddit={subreddit} creatorDate={creatorDate} href={href} />
           </div>
-          <PostPreview isPostPage={isPostPage} preview={preview} />
+          <PostPreview isPostPage={isPostPage} isVideo={isVideo} preview={preview} video={video} />
         </section>
       ) : (
         <li className={styles.box}>
           <div className={styles.leftSide}>
-            <KarmaCounter karmaCount={karmaCount} />
+            <PostPreview preview={preview} />
             <span className={styles.divider}></span>
             <PostDetails title={title} subreddit={subreddit} creatorDate={creatorDate} href={href} />
           </div>
           <div className={styles.rightSide}>
-            <PostPreview preview={preview} />
+            <KarmaCounter karmaCount={karmaCount} />
             <span className={styles.space}></span>
             <MenuButton />
           </div>

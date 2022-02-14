@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 interface PostPageProps {
   post: CommentsResponsePostInfoType;
   comments: CommentsResponseCommentsType;
+  isLoading: boolean;
+  isError: boolean;
 }
 
 type FetcherArgs = [string, object];
@@ -25,7 +27,7 @@ const PostPage: NextPage<PostPageProps> = () => {
   function usePost(pid: string | string[] | undefined) {
     const { data, error } = useSWR(
       [
-        `https:/oauth.reddit.com/comments/${pid}?raw_json=1`,
+        `https://oauth.reddit.com/comments/${pid}?raw_json=1`,
         {
           method: 'get',
           headers: { Authorization: `bearer ${token}` },
@@ -46,7 +48,7 @@ const PostPage: NextPage<PostPageProps> = () => {
     };
   }
 
-  const { post, comments, isLoading, isError } = usePost(pid);
+  const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
   console.log(post);
 
@@ -67,10 +69,12 @@ const PostPage: NextPage<PostPageProps> = () => {
           {!isLoading && (
             <PostItem
               isPostPage={true}
+              isVideo={post.data.is_video}
               title={post.data.title}
               subreddit={post.data.subreddit}
               creatorDate={post.data.created}
               preview={post.data.preview.images[0].source.url}
+              video={post.data.is_video ? post.data.media?.reddit_video.hls_url : undefined}
               karmaCount={post.data.ups}
             />
           )}
