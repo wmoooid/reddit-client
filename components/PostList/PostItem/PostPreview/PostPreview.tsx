@@ -11,11 +11,10 @@ interface PostPreviewProps {
 
 export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false, isVideo = false, preview, video }) => {
   const [videoSrc, setVideoSrc] = React.useState<string | undefined>('');
-  if (video) {
-    React.useEffect(() => {
-      setVideoSrc(video);
-    }, []);
-  }
+
+  React.useEffect(() => {
+    setVideoSrc(video);
+  }, []);
 
   if (isPostPage && isVideo) return <ReactPlayer url={videoSrc} width={'100%'} height={'100%'} playing muted loop />;
 
