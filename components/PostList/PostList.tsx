@@ -10,7 +10,7 @@ interface PostListProps {
 export const PostList: React.FC<PostListProps> = ({ posts }) => {
   return (
     <>
-      <h2 className={styles.heading}>Hot</h2>
+      <h2 className={styles.heading}>Popular posts</h2>
       <ul className={styles.list}>
         {posts.map((post) => (
           <>
@@ -19,7 +19,7 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
               title={post.data.title}
               subreddit={post.data.subreddit_name_prefixed}
               creatorDate={post.data.created}
-              preview={post.data.thumbnail}
+              preview={post.data?.preview?.images[0].resolutions[1].url}
               karmaCount={post.data.ups}
               href={post.data.id}
             />

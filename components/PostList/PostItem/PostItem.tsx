@@ -42,12 +42,12 @@ export const PostItem: React.FC<PostItemProps> = ({
       ) : (
         <li className={styles.box}>
           <div className={styles.leftSide}>
-            <PostPreview preview={preview} />
+            <KarmaCounter karmaCount={karmaCount} />
             <span className={styles.divider}></span>
             <PostDetails title={title} subreddit={subreddit} creatorDate={creatorDate} href={href} />
           </div>
           <div className={styles.rightSide}>
-            <KarmaCounter karmaCount={karmaCount} />
+            <PostPreview preview={preview} />
             <span className={styles.space}></span>
             <MenuButton />
           </div>

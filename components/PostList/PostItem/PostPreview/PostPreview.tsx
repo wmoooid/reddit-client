@@ -20,5 +20,7 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false, is
 
   if (isPostPage) return <img className={styles.previewPage} src={preview} alt='Post preview' />;
 
-  return <img className={styles.preview} src={preview} alt='Post preview' />;
+  if (preview) return <img className={styles.preview} src={preview} alt='Post preview' />;
+
+  return <div></div>;
 };

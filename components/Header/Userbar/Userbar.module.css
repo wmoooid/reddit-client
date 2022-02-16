@@ -12,6 +12,11 @@
   overflow: hidden;
 }
 
+.userAvatarImg {
+  width: 100%;
+  height: auto;
+}
+
 .userName {
   margin-left: 1rem;
   font-size: 1.125rem;

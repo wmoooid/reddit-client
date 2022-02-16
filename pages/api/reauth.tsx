@@ -1,6 +1,6 @@
 import Cors from 'cors';
 import initMiddleware from '@/lib/init-middleware';
-import { setCookies } from 'cookies-next';
+import { getCookie, setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
 
@@ -21,10 +21,10 @@ interface ResponseDataType {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res);
 
+  const refreshToken = getCookie(`refreshToken`, { req, res });
   const form = new URLSearchParams({
-    grant_type: 'authorization_code',
-    code: `${req.query.code}`,
-    redirect_uri: `${process.env.REDIRECT_URL}`,
+    grant_type: 'refresh_token',
+    refresh_token: `${refreshToken}`,
   });
 
   const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');

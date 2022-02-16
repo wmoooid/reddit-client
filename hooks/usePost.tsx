@@ -13,6 +13,7 @@ export default function usePost(pid: string | string[] | undefined) {
       },
     ],
     fetcher,
+    { shouldRetryOnError: false },
   );
 
   const [postResponse, commentsResponse] = data || [];

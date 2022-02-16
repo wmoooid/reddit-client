@@ -1,11 +1,11 @@
-import { PostItem } from '@/components/PostList/PostItem/PostItem';
-import styles from '@/styles/Index.module.css';
-import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
-import usePost from 'hooks/usePost';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React from 'react';
+import styles from '@/styles/Index.module.css';
+
+import { PostItem } from '@/components/PostList/PostItem/PostItem';
+import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
+import { useRouter } from 'next/router';
+import type { NextPage } from 'next';
+import usePost from '@/hooks/usePost';
 
 interface PostPageProps {
   post: CommentsResponsePostInfoType;

@@ -1,18 +1,16 @@
 import React from 'react';
 import styles from './Userbar.module.css';
-import Image from 'next/image';
 import useUser from 'hooks/useUser';
 
 export const Userbar: React.FC = () => {
   const { data, isLoading, isError } = useUser();
-
   return (
     <a
       className={styles.profile}
       href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=${process.env.REDIRECT_URL}&duration=permanent&scope=read submit identity`}>
       <span className={styles.userAvatar}>
         {data ? (
-          <Image src={data.icon_img} alt='User avatar' layout='fill' objectFit='cover' />
+          <img className={styles.userAvatarImg} src={data.icon_img} alt='User avatar' />
         ) : (
           <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path

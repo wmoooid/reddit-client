@@ -6,13 +6,14 @@ export default function useListing(listingName: string) {
   const token = getCookie(`token`);
   const { data, error } = useSWR(
     [
-      `https://oauth.reddit.com/${listingName}`,
+      `https://oauth.reddit.com/${listingName}?raw_json=1`,
       {
         method: 'get',
         headers: { Authorization: `bearer ${token}` },
       },
     ],
     fetcher,
+    { shouldRetryOnError: false },
   );
   return {
     data: data,

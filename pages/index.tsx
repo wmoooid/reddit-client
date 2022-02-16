@@ -1,25 +1,22 @@
-import { PostList } from '@/components/PostList/PostList';
-import styles from '@/styles/Index.module.css';
-import { ListingsResponseType } from '@/types/listings';
-import useListing from 'hooks/useListing';
-import type { NextPage } from 'next';
 import React from 'react';
+import styles from '@/styles/Index.module.css';
+import useListing from '@/hooks/useListing';
+import { PostList } from '@/components/PostList/PostList';
+import { ListingsResponseType } from '@/types/listings';
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 interface IndexPageProps {
   data: ListingsResponseType;
 }
 
 const Index: NextPage<IndexPageProps> = () => {
-  // const router = useRouter();
-  // if (router.query.code) {
-  //   const token = getCookie(`token_${router.query.code}`);
-  //   localStorage.setItem('__token__', `${token}`);
-  // }
-  // React.useEffect(() => {
-  //   const __token__ = localStorage.getItem('__token__');
-  // }, [])
-
+  const router = useRouter();
   const { data, isLoading, isError } = useListing('hot');
+
+  if (isError) {
+    router.replace('/api/reauth');
+  }
 
   return (
     <main className={styles.main}>
