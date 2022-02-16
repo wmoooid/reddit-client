@@ -20,34 +20,22 @@ const PostPage: NextPage<PostPageProps> = () => {
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
   return (
-    <>
-      <Head>
-        <meta name='viewport' content='width=device-width, user-scalable=no' />
-        <title>Another Reddit mirror</title>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap'
-          rel='stylesheet'
-        />
-      </Head>
-      <main className={styles.main}>
-        <div className={styles.container}>
-          {!isLoading && (
-            <PostItem
-              isPostPage={true}
-              isVideo={post.data.is_video}
-              title={post.data.title}
-              subreddit={post.data.subreddit}
-              creatorDate={post.data.created}
-              preview={post.data.preview.images[0].source.url}
-              video={post.data.is_video ? post.data.media?.reddit_video.hls_url : undefined}
-              karmaCount={post.data.ups}
-            />
-          )}
-        </div>
-      </main>
-    </>
+    <main className={styles.main}>
+      <div className={styles.container}>
+        {!isLoading && (
+          <PostItem
+            isPostPage={true}
+            isVideo={post.data.is_video}
+            title={post.data.title}
+            subreddit={post.data.subreddit}
+            creatorDate={post.data.created}
+            preview={post.data.preview.images[0].source.url}
+            video={post.data.is_video ? post.data.media?.reddit_video.hls_url : undefined}
+            karmaCount={post.data.ups}
+          />
+        )}
+      </div>
+    </main>
   );
 };
 
