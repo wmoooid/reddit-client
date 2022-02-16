@@ -1,0 +1,15 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  margin-right: 0.75rem;
+}
+
+.searchText {
+  font-size: 1.125rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--grey75);
+}

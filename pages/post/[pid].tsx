@@ -1,12 +1,11 @@
-import type { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import React from 'react';
-import styles from '@/styles/Index.module.css';
 import { PostItem } from '@/components/PostList/PostItem/PostItem';
+import styles from '@/styles/Index.module.css';
 import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
-import { getCookie } from 'cookies-next';
-import useSWR from 'swr';
+import usePost from 'hooks/usePost';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 interface PostPageProps {
   post: CommentsResponsePostInfoType;
@@ -15,42 +14,10 @@ interface PostPageProps {
   isError: boolean;
 }
 
-type FetcherArgs = [string, object];
-
-const fetcher = (...args: FetcherArgs) => fetch(...args).then((res) => res.json());
-
 const PostPage: NextPage<PostPageProps> = () => {
-  const token = getCookie('token');
   const router = useRouter();
   const { pid } = router.query;
-
-  function usePost(pid: string | string[] | undefined) {
-    const { data, error } = useSWR(
-      [
-        `https://oauth.reddit.com/comments/${pid}?raw_json=1`,
-        {
-          method: 'get',
-          headers: { Authorization: `bearer ${token}` },
-        },
-      ],
-      fetcher,
-    );
-
-    const [postResponse, commentsResponse] = data || [];
-    const [post] = postResponse?.data?.children || [];
-    const [comments] = commentsResponse?.data?.children || [];
-
-    return {
-      post: post,
-      comments: comments,
-      isLoading: !error && !data,
-      isError: error,
-    };
-  }
-
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
-
-  console.log(post);
 
   return (
     <>

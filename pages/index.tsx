@@ -1,18 +1,13 @@
 import { PostList } from '@/components/PostList/PostList';
 import styles from '@/styles/Index.module.css';
 import { ListingsResponseType } from '@/types/listings';
-import { getCookie } from 'cookies-next';
+import useListing from 'hooks/useListing';
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import React from 'react';
-import useSWR from 'swr';
 
 interface IndexPageProps {
   data: ListingsResponseType;
 }
-
-type FetcherArgs = [string, object];
-const fetcher = (...args: FetcherArgs) => fetch(...args).then((res) => res.json());
 
 const Index: NextPage<IndexPageProps> = () => {
   // const router = useRouter();
@@ -24,37 +19,12 @@ const Index: NextPage<IndexPageProps> = () => {
   //   const __token__ = localStorage.getItem('__token__');
   // }, [])
 
-  const token = getCookie(`token`);
-
-  const { data, error } = useSWR(
-    [
-      'https://oauth.reddit.com/hot',
-      {
-        method: 'get',
-        headers: { Authorization: `bearer ${token}` },
-      },
-    ],
-    fetcher,
-  );
-
-  console.log(data);
+  const { data, isLoading, isError } = useListing('hot');
 
   return (
-    <>
-      <Head>
-        <meta name='viewport' content='width=device-width, user-scalable=no' />
-        <title>Another Reddit mirror</title>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap'
-          rel='stylesheet'
-        />
-      </Head>
-      <main className={styles.main}>
-        <div className={styles.container}>{data?.data?.children && <PostList posts={data.data.children} />}</div>
-      </main>
-    </>
+    <main className={styles.main}>
+      <div className={styles.container}>{data?.data?.children && <PostList posts={data.data.children} />}</div>
+    </main>
   );
 };
 

@@ -1,0 +1,21 @@
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.userAvatar {
+  display: block;
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userName {
+  margin-left: 1rem;
+  font-size: 1.125rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--black);
+}
