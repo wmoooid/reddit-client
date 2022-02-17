@@ -13,7 +13,17 @@ export default function useListing(listingName: string) {
       },
     ],
     fetcher,
-    { shouldRetryOnError: false },
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        if (error.status === 401) {
+          fetch('/api/reauth');
+          revalidate;
+        }
+        if (error.status === 404) return;
+        if (retryCount >= 10) return;
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      },
+    },
   );
   return {
     data: data,

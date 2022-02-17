@@ -15,7 +15,8 @@ const Index: NextPage<IndexPageProps> = () => {
   const { data, isLoading, isError } = useListing('hot');
 
   React.useEffect(() => {
-    if (isError) fetch('/api/reauth');
+    // if (isError) fetch('/api/reauth');
+    if (isError) console.log(isError);
   }, [isError]);
 
   return (
