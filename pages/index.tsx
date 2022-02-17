@@ -14,9 +14,9 @@ const Index: NextPage<IndexPageProps> = () => {
   const router = useRouter();
   const { data, isLoading, isError } = useListing('hot');
 
-  if (isError) {
-    router.replace('/api/reauth');
-  }
+  React.useEffect(() => {
+    if (isError) fetch('/api/reauth');
+  }, []);
 
   return (
     <main className={styles.main}>
