@@ -15,6 +15,7 @@ export default function useListing(listingName: string) {
     fetcher,
     {
       onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        if (error.status === 400) return;
         if (error.status === 401) {
           fetch('/api/reauth');
           revalidate;

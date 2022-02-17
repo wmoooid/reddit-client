@@ -30,16 +30,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 
   try {
-    console.log('REFRESH_TOKEN', refreshToken);
     const response = await fetch('https://www.reddit.com/api/v1/access_token', {
       method: 'POST',
       headers: { Authorization: `Basic ${credentials}` },
       body: form,
     });
     const data = (await response.json()) as ResponseDataType;
-    console.log(data);
-    setCookies(`token`, `${data['access_token']}`, { req, res });
-    setCookies(`refreshToken`, `${data['refresh_token']}`, { req, res });
+    setCookies(`token`, `${data['access_token']}`, { req, res, maxAge: 60 * 6 * 24 });
+    setCookies(`refreshToken`, `${data['refresh_token']}`, { req, res, maxAge: 60 * 6 * 24 });
     res.redirect(`/`);
   } catch (error) {
     console.log(error);

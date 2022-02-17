@@ -14,11 +14,6 @@ const Index: NextPage<IndexPageProps> = () => {
   const router = useRouter();
   const { data, isLoading, isError } = useListing('hot');
 
-  React.useEffect(() => {
-    // if (isError) fetch('/api/reauth');
-    if (isError) console.log(isError);
-  }, [isError]);
-
   return (
     <main className={styles.main}>
       <div className={styles.container}>{data?.data?.children && <PostList posts={data.data.children} />}</div>
