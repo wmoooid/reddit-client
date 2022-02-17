@@ -16,7 +16,7 @@ const Index: NextPage<IndexPageProps> = () => {
 
   React.useEffect(() => {
     if (isError) fetch('/api/reauth');
-  }, []);
+  }, [isError]);
 
   return (
     <main className={styles.main}>
