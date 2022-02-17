@@ -30,6 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 
   try {
+    console.log('REFRESH_TOKEN', refreshToken);
     const response = await fetch('https://www.reddit.com/api/v1/access_token', {
       method: 'POST',
       headers: { Authorization: `Basic ${credentials}` },

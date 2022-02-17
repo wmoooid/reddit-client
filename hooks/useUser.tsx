@@ -13,7 +13,7 @@ export default function useUser() {
       },
     ],
     fetcher,
-    { shouldRetryOnError: false, revalidateOnFocus: false },
+    { shouldRetryOnError: false },
   );
 
   return {
