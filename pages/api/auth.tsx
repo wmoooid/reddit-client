@@ -36,8 +36,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       body: form,
     });
     const data = (await response.json()) as ResponseDataType;
-    setCookies(`token`, `${data['access_token']}`, { req, res });
-    setCookies(`refreshToken`, `${data['refresh_token']}`, { req, res });
+    setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e4) });
+    setCookies(`refreshToken`, `${data['refresh_token']}`, { req, res, expires: new Date(Date.now() + 86400e4) });
     res.redirect(`/`);
   } catch (error) {
     console.log(error);
