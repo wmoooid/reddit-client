@@ -13,8 +13,9 @@ export default function useIndex() {
     ],
     fetcher,
   );
+  const posts = data?.data?.children || [];
   return {
-    data: data,
+    posts: posts,
     isLoading: !error && !data,
     isError: error,
   };

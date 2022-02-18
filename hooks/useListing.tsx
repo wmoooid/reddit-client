@@ -21,7 +21,7 @@ export default function useListing(listingName: string) {
           revalidate;
         }
         if (error.status === 404) return;
-        if (retryCount >= 5) return;
+        if (retryCount >= 3) return;
         setTimeout(() => revalidate({ retryCount }), 5000);
       },
     },
