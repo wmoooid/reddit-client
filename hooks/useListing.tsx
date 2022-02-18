@@ -18,11 +18,10 @@ export default function useListing(listingName: string) {
         if (error.status === 400) return;
         if (error.status === 401) {
           fetch('/api/reauth');
-          revalidate;
         }
         if (error.status === 404) return;
         if (retryCount >= 3) return;
-        setTimeout(() => revalidate({ retryCount }), 5000);
+        setTimeout(() => revalidate({ retryCount }), 3000);
       },
     },
   );
