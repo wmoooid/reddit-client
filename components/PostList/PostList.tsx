@@ -15,6 +15,10 @@ export const PostList: React.FC<PostListProps> = ({ listingName }) => {
     return <PostListPlaceholder />;
   }
 
+  if (isError) {
+    return <PostListPlaceholder />;
+  }
+
   if (posts) {
     return (
       <>
