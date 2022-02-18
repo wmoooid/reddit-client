@@ -1,32 +1,43 @@
 import React from 'react';
 import styles from './PostList.module.css';
-import { ListingsResponseChildrenType } from '@/types/listings';
+import useListing from '@/hooks/useListing';
 import { PostItem } from './PostItem/PostItem';
+import { PostListPlaceholder } from './PostList.placeholder';
 
 interface PostListProps {
-  posts: ListingsResponseChildrenType;
+  listingName: string;
 }
 
-export const PostList: React.FC<PostListProps> = ({ posts }) => {
-  return (
-    <>
-      <h2 className={styles.heading}>Popular posts</h2>
-      <ul className={styles.list}>
-        {posts.map((post) => (
-          <>
-            <PostItem
-              key={post.data.id}
-              title={post.data.title}
-              subreddit={post.data.subreddit_name_prefixed}
-              creatorDate={post.data.created}
-              preview={post.data?.preview?.images[0].resolutions[1].url}
-              karmaCount={post.data.ups}
-              href={post.data.id}
-            />
-            <span className={styles.divider}></span>
-          </>
-        ))}
-      </ul>
-    </>
-  );
+export const PostList: React.FC<PostListProps> = ({ listingName }) => {
+  const { posts, isLoading, isError } = useListing(listingName);
+
+  if (isLoading) {
+    return <PostListPlaceholder />;
+  }
+
+  if (posts) {
+    return (
+      <>
+        <h2 className={styles.heading}>Popular posts</h2>
+        <ul className={styles.list}>
+          {posts.map((post) => (
+            <>
+              <PostItem
+                key={post.data.id}
+                title={post.data.title}
+                subreddit={post.data.subreddit_name_prefixed}
+                creatorDate={post.data.created}
+                preview={post.data?.preview?.images[0].resolutions[1].url}
+                karmaCount={post.data.ups}
+                href={post.data.id}
+              />
+              <span className={styles.divider}></span>
+            </>
+          ))}
+        </ul>
+      </>
+    );
+  }
+
+  return <PostListPlaceholder />;
 };

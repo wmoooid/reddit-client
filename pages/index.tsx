@@ -11,11 +11,12 @@ interface IndexPageProps {
 }
 
 const Index: NextPage<IndexPageProps> = () => {
-  const { data, isLoading, isError } = useListing('hot');
-
+  const router = useRouter();
   return (
     <main className={styles.main}>
-      <div className={styles.container}>{data?.data?.children && <PostList posts={data.data.children} />}</div>
+      <div className={styles.container}>
+        <PostList listingName={'hot'} />
+      </div>
     </main>
   );
 };

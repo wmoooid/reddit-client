@@ -1,4 +1,5 @@
 import { fetcher } from '@/lib/fetcher';
+import { ListingsResponseChildrenType } from '@/types/listings';
 import { getCookie } from 'cookies-next';
 import useSWR from 'swr';
 
@@ -25,8 +26,9 @@ export default function useListing(listingName: string) {
       },
     },
   );
+  const posts: ListingsResponseChildrenType = data?.data?.children || [];
   return {
-    data: data,
+    posts: posts,
     isLoading: !error && !data,
     isError: error,
   };
