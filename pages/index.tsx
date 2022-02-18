@@ -11,7 +11,6 @@ interface IndexPageProps {
 }
 
 const Index: NextPage<IndexPageProps> = () => {
-  const router = useRouter();
   const { data, isLoading, isError } = useListing('hot');
 
   return (
