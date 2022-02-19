@@ -18,12 +18,11 @@ export default function useListing(listingName: string) {
       onErrorRetry: async (error, key, config, revalidate, { retryCount }) => {
         if (error.status === 400) return;
         if (error.status === 401) {
-          await fetch('/api/reauth');
-          revalidate({ retryCount });
+          fetch('/api/reauth');
         }
         if (error.status === 404) return;
         if (retryCount >= 3) return;
-        // setTimeout(() => revalidate({ retryCount }), 3000);
+        setTimeout(() => revalidate({ retryCount }), 2000);
       },
     },
   );
