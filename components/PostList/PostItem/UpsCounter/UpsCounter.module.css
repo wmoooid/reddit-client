@@ -18,3 +18,9 @@
   line-height: 1;
   font-weight: 400;
 }
+
+@media (max-width: 720px) {
+  .karmaCounter {
+    display: none;
+  }
+}

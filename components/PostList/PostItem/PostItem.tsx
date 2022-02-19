@@ -18,7 +18,7 @@ export const PostItem: React.FC<PostItemProps> = ({ isPostPage = false, isTile =
           <div className={styles.tileLeft}>
             <UpsCounter />
             <span className={styles.tileDivider}></span>
-            <PostDetails />
+            <PostDetails isTile={isTile} />
           </div>
           <div className={styles.rightSide}>
             <span className={styles.space}></span>

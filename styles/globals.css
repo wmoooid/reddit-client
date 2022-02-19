@@ -66,3 +66,9 @@ ul {
 input {
   border: none;
 }
+
+@media (max-width: 900px) {
+  html {
+    font-size: 14px;
+  }
+}

@@ -24,3 +24,9 @@
   font-weight: 600;
   color: var(--main);
 }
+
+@media (max-width: 720px) {
+  .userName {
+    display: none;
+  }
+}
