@@ -1,8 +1,9 @@
 import Cors from 'cors';
-import initMiddleware from '@/lib/init-middleware';
-import { getCookie, setCookies } from 'cookies-next';
-import { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
+import initMiddleware from '@/lib/init-middleware';
+import { db } from '@/lib/jsondb';
+import { setCookies } from 'cookies-next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const cors = initMiddleware(
   Cors({
@@ -23,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const form = new URLSearchParams({
     grant_type: 'refresh_token',
-    refresh_token: `${global.__REFRESH_TOKEN}`,
+    refresh_token: `${db.getData('/refresh_token')}`,
   });
 
   const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
@@ -35,11 +36,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       body: form,
     });
     const data = (await response.json()) as ResponseDataType;
-    console.log('REFRETOKEN', global.__REFRESH_TOKEN);
-    console.log(data);
-    global.__TOKEN = data['access_token'];
-    global.__REFRESH_TOKEN = data['refresh_token'];
-    setCookies(`token`, `${global.__TOKEN}`, { req, res, expires: new Date(Date.now() + 86400e4) });
+    setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e4) });
+    db.push('/refresh_token', data['refresh_token']);
     res.redirect(`/`);
   } catch (error) {
     console.log(error);

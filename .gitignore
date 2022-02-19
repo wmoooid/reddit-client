@@ -37,3 +37,4 @@ yarn-error.log*
 *.tsbuildinfo
 .env.local
 pages/api/resp.tsx
+authdb.json
