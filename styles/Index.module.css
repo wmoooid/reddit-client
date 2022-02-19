@@ -9,5 +9,6 @@
   margin: 5rem 0;
   padding: 0 6rem;
   width: 100%;
+  min-width: 64rem;
   max-width: 72rem;
 }
