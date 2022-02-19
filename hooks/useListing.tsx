@@ -18,8 +18,7 @@ export default function useListing(listingName: string) {
       onErrorRetry: async (error, key, config, revalidate, { retryCount }) => {
         if (error.status === 400) return;
         if (error.status === 401) {
-          const data = await fetch('/api/reauth');
-          console.log('DATA:', data);
+          await fetch('/api/reauth');
           revalidate({ retryCount });
         }
         if (error.status === 404) return;

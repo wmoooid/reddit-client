@@ -19,8 +19,6 @@ const PostPage: NextPage<PostPageProps> = () => {
   const { pid } = router.query;
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
-  console.log(post);
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
