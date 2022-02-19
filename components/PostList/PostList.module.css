@@ -1,8 +1,22 @@
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .heading {
   margin: 0;
   font-size: 1.75rem;
   line-height: 1.35;
   font-weight: 700;
+}
+
+.viewPickerIcon {
+  cursor: pointer;
+}
+
+.viewPickerIcon:not(:last-child) {
+  margin-right: 1rem;
 }
 
 .list {

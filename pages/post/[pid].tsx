@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from '@/styles/Index.module.css';
-
+import usePost from '@/hooks/usePost';
 import { PostItem } from '@/components/PostList/PostItem/PostItem';
 import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
 import { useRouter } from 'next/router';
+import { PostProvider } from '@/hooks/usePostContext';
 import type { NextPage } from 'next';
-import usePost from '@/hooks/usePost';
 
 interface PostPageProps {
   post: CommentsResponsePostInfoType;
@@ -19,21 +19,22 @@ const PostPage: NextPage<PostPageProps> = () => {
   const { pid } = router.query;
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
+  console.log(post);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error!</div>;
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        {!isLoading && (
-          <PostItem
-            isPostPage={true}
-            isVideo={post.data.is_video}
-            title={post.data.title}
-            subreddit={post.data.subreddit}
-            creatorDate={post.data.created}
-            preview={post.data.preview.images[0].source.url}
-            video={post.data.is_video ? post.data.media?.reddit_video.hls_url : undefined}
-            karmaCount={post.data.ups}
-          />
-        )}
+        <PostProvider value={post.data}>
+          <PostItem isPostPage={true} />
+        </PostProvider>
       </div>
     </main>
   );

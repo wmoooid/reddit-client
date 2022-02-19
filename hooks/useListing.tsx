@@ -15,18 +15,20 @@ export default function useListing(listingName: string) {
     ],
     fetcher,
     {
-      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      onErrorRetry: async (error, key, config, revalidate, { retryCount }) => {
         if (error.status === 400) return;
         if (error.status === 401) {
-          fetch('/api/reauth');
+          const data = await fetch('/api/reauth');
+          console.log('DATA:', data);
+          revalidate({ retryCount });
         }
         if (error.status === 404) return;
         if (retryCount >= 3) return;
-        setTimeout(() => revalidate({ retryCount }), 3000);
+        // setTimeout(() => revalidate({ retryCount }), 3000);
       },
     },
   );
-  const posts: ListingsResponseChildrenType = data?.data?.children || [];
+  const posts: ListingsResponseChildrenType[] = data?.data?.children || [];
   return {
     posts: posts,
     isLoading: !error && !data,

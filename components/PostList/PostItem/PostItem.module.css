@@ -34,6 +34,34 @@
   width: 2.5rem;
 }
 
+/* Tile view */
+.tileBox {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 2.5rem;
+}
+
+.tileTop {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.tileLeft {
+  display: flex;
+  flex-direction: row;
+}
+
+.tileDivider {
+  display: block;
+  flex: none;
+  height: 7rem;
+  width: 1px;
+  margin: 0 2.5rem;
+  background-color: var(--grey93);
+}
+
 /* PostPage */
 .boxPage {
   display: flex;

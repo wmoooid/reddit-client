@@ -1,20 +1,19 @@
 import React from 'react';
-import styles from './KarmaCounter.module.css';
+import styles from './UpsCounter.module.css';
+import { usePostContext } from '@/hooks/usePostContext';
 
-interface KarmaCounterProps {
-  karmaCount: number;
-}
+export const UpsCounter: React.FC = () => {
+  const { ups } = usePostContext();
 
-export const KarmaCounter: React.FC<KarmaCounterProps> = ({ karmaCount }) => {
-  const formatKarmaCount = new Intl.NumberFormat('en-US', {
+  const formatUps = new Intl.NumberFormat('en-US', {
     notation: 'compact',
     compactDisplay: 'short',
-  }).format(karmaCount);
+  }).format(ups);
 
   return (
     <div className={styles.karmaCounter}>
       <button className={styles.karmaUp}>
-        <svg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        <svg width='1.125rem' height='0.625rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
             clipRule='evenodd'
@@ -23,9 +22,9 @@ export const KarmaCounter: React.FC<KarmaCounterProps> = ({ karmaCount }) => {
           />
         </svg>
       </button>
-      <strong className={styles.karmaCount}>{formatKarmaCount}</strong>
+      <strong className={styles.karmaCount}>{formatUps}</strong>
       <button className={styles.karmaDown}>
-        <svg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        <svg width='1.125rem' height='0.625rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
             clipRule='evenodd'

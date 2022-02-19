@@ -8,8 +8,8 @@ export const PostListPlaceholder = () => {
         <div className={styles.ph_li}>
           <svg
             className={styles.ph_karma}
-            width='36'
-            height='69'
+            width='2.25rem'
+            height='4.5rem'
             viewBox='0 0 36 69'
             fill='var(--grey93)'
             xmlns='http://www.w3.org/2000/svg'>
