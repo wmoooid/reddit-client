@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import initMiddleware from '@/lib/init-middleware';
 import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { redis } from '@/lib/redis';
 
 const cors = initMiddleware(
   Cors({
@@ -21,9 +22,13 @@ interface ResponseDataType {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res);
 
+  const REFRESH_TOKEN = await redis.get('REFRESH_TOKEN');
+
+  console.log(REFRESH_TOKEN);
+
   const form = new URLSearchParams({
     grant_type: 'refresh_token',
-    refresh_token: `${global.__REFRESH_TOKEN}`,
+    refresh_token: `${REFRESH_TOKEN}`,
   });
 
   const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
@@ -36,9 +41,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     const data = (await response.json()) as ResponseDataType;
     console.log(response.status);
-    global.__TOKEN = data['access_token'];
-    global.__REFRESH_TOKEN = data['refresh_token'];
-    setCookies(`token`, `${global.__TOKEN}`, { req, res, expires: new Date(Date.now() + 86400e4) });
+    setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e2) });
+    redis.set('REFRESH_TOKEN', data['refresh_token']);
     return res.status(response.status).send(response.status);
   } catch (error) {
     console.log(error);
