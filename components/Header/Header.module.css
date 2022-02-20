@@ -4,9 +4,8 @@
   justify-content: space-between;
   height: 6rem;
   padding: 0 2.25rem;
-  background-color: var(--background-op);
+  background-color: var(--background);
   border-bottom: 1px solid var(--grey93);
-  backdrop-filter: blur(15px);
 }
 
 .leftSide {

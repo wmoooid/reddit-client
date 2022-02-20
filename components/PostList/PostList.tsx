@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './PostList.module.css';
 import useListing from '@/hooks/useListing';
 import { PostItem } from './PostItem/PostItem';
-import { PostListPlaceholder } from './PostList.placeholder';
+import { PostListPlaceholder } from '../placeholders/PostList.placeholder';
 import { PostProvider } from '@/hooks/usePostContext';
 
 interface PostListProps {

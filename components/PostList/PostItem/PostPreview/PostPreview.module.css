@@ -12,6 +12,7 @@
 /* PostPage */
 
 .wrapper {
+  align-self: stretch;
   max-height: 75vh;
   position: relative;
   overflow: hidden;

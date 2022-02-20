@@ -6,6 +6,7 @@ import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/ty
 import { useRouter } from 'next/router';
 import { PostProvider } from '@/hooks/usePostContext';
 import type { NextPage } from 'next';
+import { PostPagePlaceholder } from '@/components/placeholders/PostPage.placeholder';
 
 interface PostPageProps {
   post: CommentsResponsePostInfoType;
@@ -20,11 +21,19 @@ const PostPage: NextPage<PostPageProps> = () => {
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <PostPagePlaceholder />
+      </div>
+    </main>;
   }
 
   if (isError) {
-    return <div>Error!</div>;
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <PostPagePlaceholder />
+      </div>
+    </main>;
   }
 
   return (
