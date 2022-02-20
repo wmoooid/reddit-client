@@ -21,19 +21,23 @@ const PostPage: NextPage<PostPageProps> = () => {
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
   if (isLoading) {
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <PostPagePlaceholder />
-      </div>
-    </main>;
+    return (
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <PostPagePlaceholder />
+        </div>
+      </main>
+    );
   }
 
   if (isError) {
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <PostPagePlaceholder />
-      </div>
-    </main>;
+    return (
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <PostPagePlaceholder />
+        </div>
+      </main>
+    );
   }
 
   return (
