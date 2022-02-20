@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
       const data = (await response.json()) as ResponseDataType;
       console.log(response.status);
-      setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e2) });
+      setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e3) });
       redis.set('REFRESH_TOKEN', data['refresh_token']);
       return res.status(response.status).send(response.status);
     } catch (error) {

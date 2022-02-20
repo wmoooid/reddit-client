@@ -37,7 +37,7 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
       <div className={styles.postDetailsPage}>
         <div className={styles.creatorInfoPage}>
           <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
-          <small className={styles.creatorDate}>{formatedDate}</small>
+          <small className={styles.creatorDatePage}>{formatedDate}</small>
         </div>
         <h1 onClick={() => router.back()} className={styles.titlePage}>
           {title}
