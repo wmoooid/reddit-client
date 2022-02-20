@@ -1,3 +1,8 @@
+/* Video size crutch */
+div > video {
+  max-height: 75vh;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     --accent: #ff4500;

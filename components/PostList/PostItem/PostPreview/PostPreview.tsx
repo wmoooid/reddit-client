@@ -2,6 +2,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import styles from './PostPreview.module.css';
 import { usePostContext } from '@/hooks/usePostContext';
+import { Waypoint } from 'react-waypoint';
 
 interface PostPreviewProps {
   isPostPage?: boolean;
@@ -18,11 +19,35 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
     is_video ? setVideoSrc(media?.reddit_video.hls_url) : () => {};
   }, []);
 
-  if (isPostPage && is_video) return <ReactPlayer url={videoSrc} width={'100%'} height={'100%'} playing muted loop />;
+  const [shouldPlay, setShouldPlay] = React.useState(false);
 
-  if (isPostPage) return <img className={styles.previewPage} src={imageSrc.source.url} alt='Post preview' />;
+  function handleEnterViewport() {
+    setShouldPlay(true);
+  }
 
-  if (preview) return <img className={styles.preview} src={imageSrc.source.url} alt='Post preview' />;
+  function handleLeaveViewport() {
+    setShouldPlay(false);
+  }
+
+  if (isPostPage && is_video)
+    return (
+      <Waypoint onEnter={handleEnterViewport} onLeave={handleLeaveViewport}>
+        <div className={styles.wrapper}>
+          <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc.resolutions[0].url})` }}></div>
+          <ReactPlayer playing={shouldPlay} url={videoSrc} width={'100%'} height={'100%'} muted loop />
+        </div>
+      </Waypoint>
+    );
+
+  if (isPostPage)
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc.resolutions[0].url})` }}></div>
+        <img className={styles.previewPage} src={imageSrc.source.url} alt='Post preview' />
+      </div>
+    );
+
+  if (preview) return <img className={styles.preview} src={imageSrc.resolutions[1].url} alt='Post preview' />;
 
   return <div></div>;
 };

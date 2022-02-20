@@ -33,9 +33,9 @@ export const PostList: React.FC<PostListProps> = ({ listingName }) => {
               onClick={() => {
                 setIsTile(false);
               }}>
-              <svg width='1.5rem' height='1.5rem' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                <rect x='2.75' y='2.75' width='18.5' height='8' rx='1.25' stroke='var(--grey75)' strokeWidth='1.5' />
-                <rect x='2.75' y='13.25' width='18.5' height='8' rx='1.25' stroke='var(--grey75)' strokeWidth='1.5' />
+              <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <rect x='2.75' y='2.75' width='18.5' height='7.5' rx='1.25' stroke='var(--grey75)' strokeWidth='1.5' />
+                <rect x='2.75' y='13.75' width='18.5' height='7.5' rx='1.25' stroke='var(--grey75)' strokeWidth='1.5' />
               </svg>
             </span>
             <span
