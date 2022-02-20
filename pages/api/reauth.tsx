@@ -22,29 +22,34 @@ interface ResponseDataType {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res);
 
-  const REFRESH_TOKEN = await redis.get('REFRESH_TOKEN');
+  if (req.query.get) {
+    const REFRESH_TOKEN = await redis.get('REFRESH_TOKEN');
 
-  console.log(REFRESH_TOKEN);
+    console.log(REFRESH_TOKEN);
 
-  const form = new URLSearchParams({
-    grant_type: 'refresh_token',
-    refresh_token: `${REFRESH_TOKEN}`,
-  });
-
-  const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
-
-  try {
-    const response = await fetch('https://www.reddit.com/api/v1/access_token', {
-      method: 'POST',
-      headers: { Authorization: `Basic ${credentials}` },
-      body: form,
+    const form = new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: `${REFRESH_TOKEN}`,
     });
-    const data = (await response.json()) as ResponseDataType;
-    console.log(response.status);
-    setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e2) });
-    redis.set('REFRESH_TOKEN', data['refresh_token']);
-    return res.status(response.status).send(response.status);
-  } catch (error) {
-    console.log(error);
+
+    const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
+
+    try {
+      const response = await fetch('https://www.reddit.com/api/v1/access_token', {
+        method: 'POST',
+        headers: { Authorization: `Basic ${credentials}` },
+        body: form,
+      });
+      const data = (await response.json()) as ResponseDataType;
+      console.log(response.status);
+      setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e2) });
+      redis.set('REFRESH_TOKEN', data['refresh_token']);
+      return res.status(response.status).send(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    console.log('BAD REQUEST');
+    return res.status(400).send(400);
   }
 }
