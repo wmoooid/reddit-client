@@ -40,3 +40,9 @@
   filter: blur(50px);
   opacity: 0.25;
 }
+
+@media (max-width: 480px) {
+  .preview {
+    width: 7rem;
+  }
+}

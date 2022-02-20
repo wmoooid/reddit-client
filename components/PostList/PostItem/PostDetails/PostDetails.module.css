@@ -38,6 +38,7 @@
 }
 
 .subreddit {
+  overflow-wrap: break-word;
   font-size: 1.125rem;
   line-height: 1;
   font-weight: 400;
@@ -96,5 +97,11 @@
     font-size: 2rem;
     line-height: 1.1;
     font-weight: 600;
+  }
+}
+
+@media (max-width: 480px) {
+  .subreddit {
+    display: none;
   }
 }

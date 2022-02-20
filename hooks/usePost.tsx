@@ -16,8 +16,6 @@ export default function usePost(pid: string | string[] | undefined) {
     { shouldRetryOnError: false },
   );
 
-  console.log(data);
-
   const [postResponse, commentsResponse] = data || [];
   const [post] = postResponse?.data?.children || [];
   const [comments] = commentsResponse?.data?.children || [];
