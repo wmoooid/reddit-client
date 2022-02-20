@@ -19,15 +19,17 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
   const router = useRouter();
 
   if (isTile) {
-    <div className={styles.postDetailsTile}>
-      <Link href={`/post/${id}`} shallow={true}>
-        <h3 className={styles.title}>{title}</h3>
-      </Link>
-      <div className={styles.creatorInfo}>
-        <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
-        <small className={styles.creatorDate}>{formatedDate}</small>
+    return (
+      <div className={styles.postDetailsTile}>
+        <Link href={`/post/${id}`} shallow={true}>
+          <h3 className={styles.title}>{title}</h3>
+        </Link>
+        <div className={styles.creatorInfo}>
+          <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+          <small className={styles.creatorDate}>{formatedDate}</small>
+        </div>
       </div>
-    </div>;
+    );
   }
 
   if (isPostPage) {
