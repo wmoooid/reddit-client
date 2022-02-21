@@ -1,6 +1,6 @@
 import { fetcher } from '@/lib/fetcher';
 import { ListingsResponseChildrenType } from '@/types/listings';
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookies } from 'cookies-next';
 import useSWR from 'swr';
 
 export default function useListing(listingName: string) {
@@ -18,7 +18,11 @@ export default function useListing(listingName: string) {
       onErrorRetry: async (error, key, config, revalidate, { retryCount }) => {
         if (error.status === 400) return;
         if (error.status === 401) {
-          fetch('/api/reauth?get=token');
+          const res = await fetch('/api/reauth?get=token');
+          if (res.status === 200) {
+            const data = await res.json();
+            setCookies(`token`, `${data['access_token']}`, { expires: new Date(Date.now() + 86400e3) });
+          }
         }
         if (error.status === 404) return;
         if (retryCount >= 10) return;

@@ -1,7 +1,6 @@
 import Cors from 'cors';
 import fetch from 'node-fetch';
 import initMiddleware from '@/lib/init-middleware';
-import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { redis } from '@/lib/redis';
 
@@ -42,14 +41,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
       const data = (await response.json()) as ResponseDataType;
       console.log(response.status);
-      setCookies(`token`, `${data['access_token']}`, { req, res, expires: new Date(Date.now() + 86400e3) });
       redis.set('REFRESH_TOKEN', data['refresh_token']);
-      return res.status(response.status).send(response.status);
+      return res.status(response.status).json({ access_token: data['access_token'] });
     } catch (error) {
       console.log(error);
     }
   } else {
-    console.log('BAD REQUEST');
+    console.log('BAD REQUEST!');
     return res.status(400).send(400);
   }
 }
