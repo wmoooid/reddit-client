@@ -34,7 +34,18 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
       <Waypoint onEnter={handleEnterViewport} onLeave={handleLeaveViewport}>
         <div className={styles.wrapper}>
           <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc.resolutions[0].url})` }}></div>
-          <ReactPlayer playing={shouldPlay} url={videoSrc} width={'100%'} height={'100%'} muted loop />
+          <img className={styles.previewPage} src={imageSrc.source.url} alt='Post preview' />
+          <ReactPlayer
+            className={styles.videoWrapper}
+            light={true}
+            playing={shouldPlay}
+            url={videoSrc}
+            width={'100%'}
+            height={'100%'}
+            volume={0.2}
+            controls
+            loop
+          />
         </div>
       </Waypoint>
     );

@@ -4,13 +4,14 @@ import useListing from '@/hooks/useListing';
 import { PostItem } from './PostItem/PostItem';
 import { PostListPlaceholder } from '../placeholders/PostList.placeholder';
 import { PostProvider } from '@/hooks/usePostContext';
+import useInfiniteListing from '@/hooks/useInfiniteListing';
 
 interface PostListProps {
   listingName: string;
 }
 
 export const PostList: React.FC<PostListProps> = ({ listingName }) => {
-  const { posts, isLoading, isError } = useListing(listingName);
+  const { posts, isLoading, isValidating, isError, size, setSize } = useInfiniteListing(listingName);
 
   const [isTile, setIsTile] = React.useState(true);
 
@@ -57,6 +58,15 @@ export const PostList: React.FC<PostListProps> = ({ listingName }) => {
             </PostProvider>
           ))}
         </ul>
+        {isValidating ? (
+          <div className='placeholder'>
+            <div className={styles.moreLoading}>Loading...</div>
+          </div>
+        ) : (
+          <button className={styles.moreButton} onClick={() => setSize(size + 1)}>
+            Load More
+          </button>
+        )}
       </>
     );
   }

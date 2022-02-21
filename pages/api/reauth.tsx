@@ -21,6 +21,8 @@ interface ResponseDataType {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res);
 
+  console.log(req.query);
+
   if (req.query.get) {
     const REFRESH_TOKEN = await redis.get('REFRESH_TOKEN');
 

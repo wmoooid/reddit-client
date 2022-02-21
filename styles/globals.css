@@ -72,6 +72,18 @@ input {
   border: none;
 }
 
+/* .react-player__preview {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+} */
+
+.react-player__shadow {
+  z-index: 2;
+}
+
 @keyframes placeHolderShimmer {
   0% {
     transform: translateX(-50%);

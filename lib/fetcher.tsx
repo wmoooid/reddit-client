@@ -1,3 +1,6 @@
+import { getCookie, setCookies } from 'cookies-next';
+import { SWRConfiguration } from 'swr';
+
 type FetcherArgs = [string, object];
 
 type ErrorInfo = {
@@ -16,4 +19,34 @@ export const fetcher = async (...args: FetcherArgs) => {
   }
 
   return res.json();
+};
+
+export const TOKEN = getCookie(`token`);
+
+export const BASE_URL = 'https://oauth.reddit.com/';
+
+export const URL_PARAMS = new URLSearchParams({
+  raw_json: '1',
+  limit: '10',
+});
+
+export const GET_PARAMS = {
+  method: 'get',
+  headers: { Authorization: `bearer ${TOKEN}` },
+};
+
+export const SWR_OPTIONS: SWRConfiguration = {
+  onErrorRetry: async (error, key, config, revalidate, { retryCount }) => {
+    if (error.status === 400) return;
+    if (error.status === 401) {
+      const res = await fetch('/api/reauth?get=token');
+      if (res.status === 200) {
+        const data = await res.json();
+        setCookies(`token`, `${data['access_token']}`, { expires: new Date(Date.now() + 86400e3) });
+      }
+    }
+    if (error.status === 404) return;
+    if (retryCount >= 10) return;
+    setTimeout(() => revalidate({ retryCount }), 1000);
+  },
 };
