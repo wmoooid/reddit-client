@@ -21,7 +21,7 @@ export const fetcher = async (...args: FetcherArgs) => {
   return res.json();
 };
 
-export const TOKEN = getCookie(`token`);
+export let TOKEN = getCookie(`token`);
 
 export const BASE_URL = 'https://oauth.reddit.com/';
 
@@ -41,12 +41,14 @@ export const SWR_OPTIONS: SWRConfiguration = {
     if (error.status === 401) {
       const res = await fetch('/api/reauth?get=token');
       if (res.status === 200) {
+        console.log('TOKEN', TOKEN);
         const data = await res.json();
         setCookies(`token`, `${data['access_token']}`, { expires: new Date(Date.now() + 86400e3) });
+        return;
       }
     }
     if (error.status === 404) return;
-    if (retryCount >= 10) return;
+    if (retryCount >= 5) return;
     setTimeout(() => revalidate({ retryCount }), 1000);
   },
 };
