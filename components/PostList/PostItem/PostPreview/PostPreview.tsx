@@ -29,8 +29,6 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
     setShouldPlay(false);
   }
 
-  console.log(!!imageSrc.variants.gif);
-
   if (!preview) return null;
 
   if (isPostPage && is_video)

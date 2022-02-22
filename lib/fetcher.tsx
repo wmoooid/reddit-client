@@ -41,7 +41,6 @@ export const SWR_OPTIONS: SWRConfiguration = {
     if (error.status === 401) {
       const res = await fetch('/api/reauth?get=token');
       if (res.status === 200) {
-        console.log('TOKEN', TOKEN);
         const data = await res.json();
         setCookies(`token`, `${data['access_token']}`, { expires: new Date(Date.now() + 86400e3) });
         return;

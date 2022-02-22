@@ -10,8 +10,6 @@ export default function useListing(listingName: string) {
 
   const posts: ListingsResponseChildrenType[] = data?.data?.children || [];
 
-  console.log(data);
-
   return {
     posts: posts,
     isLoading: !error && !data,
