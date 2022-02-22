@@ -47,6 +47,7 @@
   line-height: 1;
   font-weight: 400;
   color: var(--accent);
+  cursor: pointer;
 }
 
 .creatorDate {

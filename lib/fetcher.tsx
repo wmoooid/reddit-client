@@ -23,7 +23,7 @@ export const fetcher = async (...args: FetcherArgs) => {
 
 export let TOKEN = getCookie(`token`);
 
-export const BASE_URL = 'https://oauth.reddit.com/';
+export const BASE_URL = 'https://oauth.reddit.com';
 
 export const URL_PARAMS = new URLSearchParams({
   raw_json: '1',

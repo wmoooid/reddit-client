@@ -11,7 +11,7 @@ interface PostPreviewProps {
 export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) => {
   const { is_video, preview, media } = usePostContext();
 
-  const [imageSrc] = preview.images;
+  const [imageSrc] = preview?.images || [];
 
   const [videoSrc, setVideoSrc] = React.useState<string | undefined>('');
 
@@ -29,12 +29,16 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
     setShouldPlay(false);
   }
 
+  console.log(!!imageSrc.variants.gif);
+
+  if (!preview) return null;
+
   if (isPostPage && is_video)
     return (
       <Waypoint onEnter={handleEnterViewport} onLeave={handleLeaveViewport}>
         <div className={styles.wrapper}>
-          <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc.resolutions[0].url})` }}></div>
-          <img className={styles.previewPage} src={imageSrc.source.url} alt='Post preview' />
+          <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc?.resolutions[0].url})` }}></div>
+          <img className={styles.previewPage} src={imageSrc?.source.url} alt='Post preview' />
           <ReactPlayer
             className={styles.videoWrapper}
             light={true}
@@ -53,12 +57,16 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
   if (isPostPage)
     return (
       <div className={styles.wrapper}>
-        <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc.resolutions[0].url})` }}></div>
-        <img className={styles.previewPage} src={imageSrc.source.url} alt='Post preview' />
+        <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc?.resolutions[0].url})` }}></div>
+        <img
+          className={styles.previewPage}
+          src={imageSrc.variants.gif ? imageSrc.variants.gif.source.url : imageSrc?.source.url}
+          alt='Post preview'
+        />
       </div>
     );
 
-  if (preview) return <img className={styles.preview} src={imageSrc.resolutions[1].url} alt='Post preview' />;
+  if (preview) return <img className={styles.preview} src={imageSrc?.resolutions[1].url} alt='Post preview' />;
 
   return <div></div>;
 };

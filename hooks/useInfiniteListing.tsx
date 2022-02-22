@@ -4,7 +4,7 @@ import { getCookie, setCookies } from 'cookies-next';
 import { SWRConfiguration } from 'swr';
 import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
 
-export default function useInfiniteListing(listingName: string) {
+export default function useInfiniteListing(listing: string) {
   const TOKEN = getCookie(`token`);
 
   const GET_PARAMS = {
@@ -30,9 +30,9 @@ export default function useInfiniteListing(listingName: string) {
   };
 
   const getKey: SWRInfiniteKeyLoader = (pageIndex, previousPageData) => {
-    if (pageIndex === 0) return [`${BASE_URL}${listingName}?${URL_PARAMS}`, GET_PARAMS];
+    if (pageIndex === 0) return [`${BASE_URL}${listing}?${URL_PARAMS}`, GET_PARAMS];
 
-    return [`${BASE_URL}${listingName}?${URL_PARAMS}&after=${previousPageData.data.after}`, GET_PARAMS];
+    return [`${BASE_URL}${listing}?${URL_PARAMS}&after=${previousPageData.data.after}`, GET_PARAMS];
   };
 
   const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(getKey, fetcher, SWR_OPTIONS);

@@ -25,7 +25,9 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
           <h3 className={styles.title}>{title}</h3>
         </Link>
         <div className={styles.creatorInfo}>
-          <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+          <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
+            <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+          </Link>
           <small className={styles.creatorDate}>{formatedDate}</small>
         </div>
       </div>
@@ -36,7 +38,9 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
     return (
       <div className={styles.postDetailsPage}>
         <div className={styles.creatorInfoPage}>
-          <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+          <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
+            <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+          </Link>
           <small className={styles.creatorDatePage}>{formatedDate}</small>
         </div>
         <h1 onClick={() => router.back()} className={styles.titlePage}>
@@ -52,7 +56,9 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
         <h3 className={styles.title}>{title}</h3>
       </Link>
       <div className={styles.creatorInfo}>
-        <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+        <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
+          <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+        </Link>
         <small className={styles.creatorDate}>{formatedDate}</small>
       </div>
     </div>

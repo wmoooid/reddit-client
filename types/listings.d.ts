@@ -91,7 +91,7 @@ export type ListingsResponseChildrenDataType = {
     images: {
       source: { url: string; width: number; height: number };
       resolutions: { url: string; width: number; height: number }[];
-      variants: {};
+      variants: { gif: { source: { url: string } }; mp4: object };
       id: string;
     }[];
     enabled: boolean;
