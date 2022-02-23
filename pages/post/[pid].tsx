@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { PostProvider } from '@/hooks/usePostContext';
 import type { NextPage } from 'next';
 import { PostPagePlaceholder } from '@/components/placeholders/PostPage.placeholder';
+import Head from 'next/head';
 
 interface PostPageProps {
   post: CommentsResponsePostInfoType;
@@ -28,9 +29,14 @@ const PostPage: NextPage<PostPageProps> = () => {
   }
 
   return (
-    <PostProvider value={post.data}>
-      <PostItem isPostPage={true} />
-    </PostProvider>
+    <>
+      <Head>
+        <title>{post.data ? post.data.title : 'Another Reddit mirror'}</title>
+      </Head>
+      <PostProvider value={post.data}>
+        <PostItem isPostPage={true} />
+      </PostProvider>
+    </>
   );
 };
 

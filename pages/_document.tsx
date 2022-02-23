@@ -11,7 +11,6 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name='viewport' content='width=device-width, user-scalable=no' />
-          <title>Another Reddit mirror</title>
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link
