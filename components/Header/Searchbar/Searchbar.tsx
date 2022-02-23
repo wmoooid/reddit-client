@@ -5,7 +5,7 @@ export const Searchbar: React.FC = () => {
   return (
     <div className={styles.searchBar}>
       <span className={styles.searchIcon}>
-        <svg width='1.5rem' height='1.5rem' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        <svg width='1.25rem' height='1.25rem' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
             clipRule='evenodd'

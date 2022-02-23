@@ -6,8 +6,8 @@
 .userAvatar {
   display: block;
   position: relative;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -19,7 +19,7 @@
 
 .userName {
   margin-left: 1rem;
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1;
   font-weight: 600;
   color: var(--main);

@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 6rem;
-  padding: 0 2.25rem;
+  height: 4.5rem;
+  padding: 0 1.5rem;
   background-color: var(--background);
   border-bottom: 1px solid var(--grey93);
 }
@@ -15,9 +15,9 @@
 
 .divider {
   display: block;
-  height: 6rem;
+  height: 4.5rem;
   width: 1px;
-  margin: 0 2.25rem;
+  margin: 0 1.5rem;
   background-color: var(--grey93);
 }
 

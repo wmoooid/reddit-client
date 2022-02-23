@@ -72,13 +72,19 @@ input {
   border: none;
 }
 
-/* .react-player__preview {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-} */
+.main {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+}
+
+.container {
+  margin: 4rem auto;
+  padding: 0 4rem;
+  width: 100%;
+  min-width: 24rem;
+  max-width: 72rem;
+}
 
 .react-player__shadow {
   z-index: 2;
@@ -94,13 +100,18 @@ input {
 }
 
 @media (max-width: 900px) {
-  html {
-    font-size: 14px;
+  .container {
+    margin: 2rem auto;
+    padding: 0 2rem;
   }
 }
 
 @media (max-width: 480px) {
   html {
-    font-size: 12px;
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 1rem;
   }
 }

@@ -1,10 +1,16 @@
 import React from 'react';
 import styles from './SidebarButton.module.css';
+import { LayoutContext } from '@/components/Layout';
 
 export const SidebarButton: React.FC = () => {
+  const { showSidebar, setShowSidebar } = React.useContext(LayoutContext);
   return (
-    <span className={styles.menuButton}>
-      <svg width='1.5rem' height='1.5rem' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <span
+      onClick={() => {
+        setShowSidebar(!showSidebar);
+      }}
+      className={styles.menuButton}>
+      <svg width='1.25rem' height='1.25rem' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <path
           fillRule='evenodd'
           clipRule='evenodd'

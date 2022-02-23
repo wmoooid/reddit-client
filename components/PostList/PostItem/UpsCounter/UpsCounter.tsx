@@ -13,7 +13,7 @@ export const UpsCounter: React.FC = () => {
   return (
     <div className={styles.karmaCounter}>
       <button className={styles.karmaUp}>
-        <svg width='1.125rem' height='0.625rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
             clipRule='evenodd'
@@ -24,7 +24,7 @@ export const UpsCounter: React.FC = () => {
       </button>
       <strong className={styles.karmaCount}>{formatUps}</strong>
       <button className={styles.karmaDown}>
-        <svg width='1.125rem' height='0.625rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
             clipRule='evenodd'

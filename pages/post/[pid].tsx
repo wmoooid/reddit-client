@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '@/styles/Index.module.css';
 import usePost from '@/hooks/usePost';
 import { PostItem } from '@/components/PostList/PostItem/PostItem';
 import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
@@ -21,33 +20,17 @@ const PostPage: NextPage<PostPageProps> = () => {
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
 
   if (isLoading) {
-    return (
-      <main className={styles.main}>
-        <div className={styles.container}>
-          <PostPagePlaceholder />
-        </div>
-      </main>
-    );
+    return <PostPagePlaceholder />;
   }
 
   if (isError) {
-    return (
-      <main className={styles.main}>
-        <div className={styles.container}>
-          <PostPagePlaceholder />
-        </div>
-      </main>
-    );
+    return <PostPagePlaceholder />;
   }
 
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <PostProvider value={post.data}>
-          <PostItem isPostPage={true} />
-        </PostProvider>
-      </div>
-    </main>
+    <PostProvider value={post.data}>
+      <PostItem isPostPage={true} />
+    </PostProvider>
   );
 };
 
