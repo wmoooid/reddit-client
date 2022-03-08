@@ -202,7 +202,7 @@ export const Sidebar = () => {
         <strong className={styles.heading}>Subscriptions</strong>
         <ul className={styles.list}>
           {subscriptions.map((item) => (
-            <Link href={item.data.url} shallow={true}>
+            <Link key={item.data.id} href={item.data.url} shallow={true}>
               <li className={styles.item}>
                 <img src={item.data.community_icon || item.data.icon_img} className={styles.itemIcon} />
                 <span className={styles.itemName}>{item.data.display_name}</span>

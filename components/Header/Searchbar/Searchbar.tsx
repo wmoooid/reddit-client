@@ -52,7 +52,7 @@ export const Searchbar: React.FC = () => {
         <div className={styles.popupContainer}>
           <ul className={styles.popupList}>
             {list.map((item) => (
-              <Link href={`/r/${item.name}`} shallow={true}>
+              <Link key={item.name} href={`/r/${item.name}`} shallow={true}>
                 <li onClick={handleItemClick} className={styles.popupItem}>
                   <span className={styles.itemImageContainer}>
                     {item.icon_img ? (
