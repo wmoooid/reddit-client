@@ -1,6 +1,7 @@
 .searchBar {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .searchIcon {
@@ -13,5 +14,73 @@
   font-size: 1rem;
   line-height: 1;
   font-weight: 600;
+}
+
+.searchText::placeholder {
+  color: var(--grey75);
+}
+
+.searchText:focus-visible {
+  outline: none;
+}
+
+.popupContainer {
+  z-index: 100;
+  position: absolute;
+  top: 4rem;
+  left: -1.5rem;
+  width: 20rem;
+  padding: 1.5rem;
+  background-color: var(--background);
+  border: 1px solid var(--grey93);
+  border-radius: 0.25rem;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
+.popupList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.popupItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.popupItem:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.itemImageContainer {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.itemImage {
+  width: 100%;
+  height: 100%;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemText {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.itemSubscribers {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  line-height: 1;
+  font-weight: 400;
   color: var(--grey75);
 }

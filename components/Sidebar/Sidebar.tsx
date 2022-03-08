@@ -1,8 +1,12 @@
+import useSubscriptions from '@/hooks/useSubscriptions';
 import Link from 'next/link';
 import React from 'react';
 import styles from './Sidebar.module.css';
 
 export const Sidebar = () => {
+  const { subscriptions } = useSubscriptions();
+  console.log(subscriptions);
+
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -35,7 +39,7 @@ export const Sidebar = () => {
                   />
                 </svg>
               </span>
-              <span className={styles.itemName}>All</span>
+              <span className={styles.itemName}>Best</span>
             </li>
           </Link>
           <Link href={`/hot`} shallow={true}>
@@ -193,6 +197,19 @@ export const Sidebar = () => {
               <span className={styles.itemName}>Top</span>
             </li>
           </Link>
+        </ul>
+      </nav>
+      <nav className={styles.nav}>
+        <strong className={styles.heading}>Subscriptions</strong>
+        <ul className={styles.list}>
+          {subscriptions.map((item) => (
+            <Link href={item.data.url} shallow={true}>
+              <li className={styles.item}>
+                <img src={item.data.community_icon || item.data.icon_img} className={styles.itemIcon} />
+                <span className={styles.itemName}>{item.data.display_name}</span>
+              </li>
+            </Link>
+          ))}
         </ul>
       </nav>
     </div>

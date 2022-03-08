@@ -1,14 +1,10 @@
 import React from 'react';
 import styles from './UpsCounter.module.css';
 import { usePostContext } from '@/hooks/usePostContext';
+import { formatNumber } from '@/utils/formatNumber';
 
 export const UpsCounter: React.FC = () => {
   const { ups } = usePostContext();
-
-  const formatUps = new Intl.NumberFormat('en-US', {
-    notation: 'compact',
-    compactDisplay: 'short',
-  }).format(ups);
 
   return (
     <div className={styles.karmaCounter}>
@@ -22,7 +18,7 @@ export const UpsCounter: React.FC = () => {
           />
         </svg>
       </button>
-      <strong className={styles.karmaCount}>{formatUps}</strong>
+      <strong className={styles.karmaCount}>{formatNumber(ups)}</strong>
       <button className={styles.karmaDown}>
         <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
