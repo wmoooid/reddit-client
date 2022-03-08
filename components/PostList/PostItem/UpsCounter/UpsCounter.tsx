@@ -7,8 +7,8 @@ export const UpsCounter: React.FC = () => {
   const { ups } = usePostContext();
 
   return (
-    <div className={styles.karmaCounter}>
-      <button className={styles.karmaUp}>
+    <div className={styles.upsCounter}>
+      <button className={styles.upsUp}>
         <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
@@ -18,8 +18,8 @@ export const UpsCounter: React.FC = () => {
           />
         </svg>
       </button>
-      <strong className={styles.karmaCount}>{formatNumber(ups)}</strong>
-      <button className={styles.karmaDown}>
+      <strong className={styles.upsCount}>{formatNumber(ups)}</strong>
+      <button className={styles.upsDown}>
         <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'

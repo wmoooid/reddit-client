@@ -3,12 +3,15 @@ div > video {
   max-height: 75vh;
 }
 
+/* Color scheme */
 @media (prefers-color-scheme: light) {
   :root {
     --accent: #ff4500;
+    --accent-light: #ffa280;
     --main: #333333;
     --background: #ffffff;
     --background-op: rgba(255, 255, 255, 0.5);
+    --grey97: #f2f2f7;
     --grey93: #e8e8ed;
     --grey75: #b8b8bf;
   }
@@ -17,9 +20,11 @@ div > video {
 @media (prefers-color-scheme: dark) {
   :root {
     --accent: #ff7440;
+    --accent-light: #993c1a;
     --main: #d0d0d9;
     --background: #252526;
     --background-op: rgba(37, 37, 38, 0.5);
+    --grey97: #38383b;
     --grey93: #3d3d40;
     --grey75: #626266;
   }
@@ -88,15 +93,6 @@ input {
 
 .react-player__shadow {
   z-index: 2;
-}
-
-@keyframes placeHolderShimmer {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(150%);
-  }
 }
 
 @media (max-width: 900px) {

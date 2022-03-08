@@ -1,26 +1,31 @@
-/* Karma */
-.karmaCounter {
+/* Ups */
+.upsCounter {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 3rem;
 }
 
-.karmaUp,
-.karmaDown {
+.upsUp,
+.upsDown {
   background: none;
   border: none;
 }
 
-.karmaCount {
+.upsCount {
   margin: 0.5rem 0;
   font-size: 1rem;
   line-height: 1;
   font-weight: 400;
 }
 
+.upsUp:hover svg path,
+.upsDown:hover svg path {
+  fill: var(--accent);
+}
+
 @media (max-width: 720px) {
-  .karmaCounter {
+  .upsCounter {
     display: none;
   }
 }

@@ -148,3 +148,13 @@
   width: 4rem;
   height: 4rem;
 }
+
+/* Animation */
+@keyframes placeHolderShimmer {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}

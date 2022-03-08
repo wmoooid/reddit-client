@@ -22,10 +22,8 @@ export const Searchbar: React.FC = () => {
 
   const { list } = useSearch(query);
 
-  console.log(list);
-
   return (
-    <div className={styles.searchBar}>
+    <div className={styles.container}>
       <span className={styles.searchIcon}>
         <svg width='1.25rem' height='1.25rem' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path

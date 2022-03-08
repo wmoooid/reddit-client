@@ -6,7 +6,7 @@ export const TopBar: React.FC = () => {
   const { listing, setIsTile } = React.useContext(PostListContext);
 
   return (
-    <div className={styles.topBar}>
+    <div className={styles.container}>
       <h2 className={styles.heading}>{listing}</h2>
       <div className={styles.viewPicker}>
         <span

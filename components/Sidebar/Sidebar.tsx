@@ -5,7 +5,6 @@ import styles from './Sidebar.module.css';
 
 export const Sidebar = () => {
   const { subscriptions } = useSubscriptions();
-  console.log(subscriptions);
 
   return (
     <div className={styles.container}>

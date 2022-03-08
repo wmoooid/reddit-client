@@ -14,7 +14,7 @@ export default function useSubscriptions() {
       },
     ],
     fetcher,
-    { shouldRetryOnError: false },
+    { shouldRetryOnError: false, revalidateOnFocus: false },
   );
 
   const subscriptions: SubscriptionsResponseChildren[] = data?.data?.children || [];

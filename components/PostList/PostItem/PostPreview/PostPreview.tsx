@@ -55,7 +55,7 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
   if (isPostPage)
     return (
       <div className={styles.wrapper}>
-        <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc?.resolutions[0].url})` }}></div>
+        <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc?.resolutions[0]?.url})` }}></div>
         <img
           className={styles.previewPage}
           src={imageSrc.variants.gif ? imageSrc.variants.gif.source.url : imageSrc?.source.url}
@@ -64,7 +64,14 @@ export const PostPreview: React.FC<PostPreviewProps> = ({ isPostPage = false }) 
       </div>
     );
 
-  if (preview) return <img className={styles.preview} src={imageSrc?.resolutions[1].url} alt='Post preview' />;
+  if (preview)
+    return (
+      <img
+        className={styles.preview}
+        src={imageSrc?.resolutions[1]?.url || imageSrc?.resolutions[0]?.url}
+        alt='Post preview'
+      />
+    );
 
   return <div></div>;
 };
