@@ -1,25 +1,26 @@
 import React from 'react';
 import usePost from '@/hooks/usePost';
+import Head from 'next/head';
 import { PostItem } from '@/components/PostList/PostItem/PostItem';
-import { CommentsResponseCommentsType, CommentsResponsePostInfoType } from '@/types/comments';
+import { CommentsResponseCommentsDataType, CommentsResponsePostInfoType } from '@/types/comments';
 import { useRouter } from 'next/router';
 import { PostProvider } from '@/hooks/usePostContext';
-import type { NextPage } from 'next';
 import { PostPagePlaceholder } from '@/components/placeholders/PostPage.placeholder';
-import Head from 'next/head';
+import { CommentsList } from '@/components/CommentsList/CommentsList';
+import type { NextPage } from 'next';
+import { CommentsProvider } from '@/hooks/useCommentsContext';
 
 interface PostPageProps {
   post: CommentsResponsePostInfoType;
-  comments: CommentsResponseCommentsType;
+  comments: CommentsResponseCommentsDataType[];
   isLoading: boolean;
   isError: boolean;
 }
 
-const PostPage: NextPage<PostPageProps> = () => {
+const PostPage: NextPage = () => {
   const router = useRouter();
   const { pid } = router.query;
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
-
   if (isLoading) {
     return <PostPagePlaceholder />;
   }
@@ -35,6 +36,9 @@ const PostPage: NextPage<PostPageProps> = () => {
       </Head>
       <PostProvider value={post.data}>
         <PostItem isPostPage={true} />
+        <CommentsProvider value={comments}>
+          <CommentsList />
+        </CommentsProvider>
       </PostProvider>
     </>
   );

@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './PostDetails.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { formatDistanceToNow } from 'date-fns';
 import { usePostContext } from '@/hooks/usePostContext';
+import { formatDate } from '@/utils/formatDate';
 
 interface PostDetailsProps {
   isPostPage?: boolean;
@@ -12,9 +12,6 @@ interface PostDetailsProps {
 
 export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, isTile = false }) => {
   const { title, subreddit_name_prefixed, created, id } = usePostContext();
-
-  const unformattedDate = new Date(created * 1000);
-  const formatedDate = formatDistanceToNow(unformattedDate, { addSuffix: true });
 
   const router = useRouter();
 
@@ -28,7 +25,7 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
           <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
             <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
           </Link>
-          <small className={styles.creatorDate}>{formatedDate}</small>
+          <small className={styles.creatorDate}>{formatDate(created)}</small>
         </div>
       </div>
     );
@@ -41,7 +38,7 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
           <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
             <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
           </Link>
-          <small className={styles.creatorDatePage}>{formatedDate}</small>
+          <small className={styles.creatorDatePage}>{formatDate(created)}</small>
         </div>
         <h1 onClick={() => router.back()} className={styles.titlePage}>
           {title}
@@ -59,7 +56,7 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
         <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
           <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
         </Link>
-        <small className={styles.creatorDate}>{formatedDate}</small>
+        <small className={styles.creatorDate}>{formatDate(created)}</small>
       </div>
     </div>
   );

@@ -31,3 +31,9 @@
   background-color: var(--grey93);
   border-radius: 0.25rem;
 }
+
+@media (max-width: 900px) {
+  .list {
+    margin-top: 1.5rem;
+  }
+}

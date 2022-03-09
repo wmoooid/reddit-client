@@ -16,6 +16,10 @@
   cursor: pointer;
 }
 
+.title:hover {
+  opacity: 0.75;
+}
+
 .creatorInfo {
   display: flex;
   flex-direction: row;
@@ -48,6 +52,10 @@
   font-weight: 400;
   color: var(--accent);
   cursor: pointer;
+}
+
+.subreddit:hover {
+  opacity: 0.75;
 }
 
 .creatorDate {

@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.container:hover {
+  opacity: 0.75;
+}
+
 .searchIcon {
   margin-right: 0.75rem;
   width: 1.25rem;

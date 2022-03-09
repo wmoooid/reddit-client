@@ -1,0 +1,44 @@
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  padding-left: 1rem;
+  border-left: 1px solid var(--grey93);
+}
+
+.item:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  margin-right: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.author {
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.created {
+  margin-left: 1rem;
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--grey75);
+}
+
+.body {
+  margin-top: 0.5rem;
+}
+
+.replies {
+  margin-left: 1rem;
+}

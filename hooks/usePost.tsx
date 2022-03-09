@@ -6,7 +6,7 @@ export default function usePost(pid: string | string[] | undefined) {
   const token = getCookie(`token`);
   const { data, error } = useSWR(
     [
-      `https://oauth.reddit.com/comments/${pid}?raw_json=1&limit=1`,
+      `https://oauth.reddit.com/comments/${pid}?raw_json=1&limit=10`,
       {
         method: 'get',
         headers: { Authorization: `bearer ${token}` },
@@ -18,7 +18,7 @@ export default function usePost(pid: string | string[] | undefined) {
 
   const [postResponse, commentsResponse] = data || [];
   const [post] = postResponse?.data?.children || [];
-  const [comments] = commentsResponse?.data?.children || [];
+  const comments = commentsResponse?.data?.children || [];
 
   return {
     post: post,

@@ -3,10 +3,10 @@ interface AvatarPlaceholderProps {
   name?: string;
 }
 
-export const AvatarPlaceholder: React.FC<AvatarPlaceholderProps> = ({ color = 'var(--accent)', name = 'R' }) => {
+export const AvatarPlaceholder: React.FC<AvatarPlaceholderProps> = ({ color = 'var(--grey75)', name = 'R' }) => {
   return (
-    <span className='ph_avatar' style={color ? { backgroundColor: color } : { backgroundColor: 'var(--accent)' }}>
-      <span className='ph_avatarLetter'>{name[0]}</span>
+    <span className='ph_avatar' style={{ backgroundColor: color }}>
+      <span className='ph_avatarLetter'>{name[0].toUpperCase()}</span>
     </span>
   );
 };
