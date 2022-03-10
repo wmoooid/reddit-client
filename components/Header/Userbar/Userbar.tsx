@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './Userbar.module.css';
-import useUser from 'hooks/useUser';
+import useMe from '@/hooks/useMe';
 import { UserbarPlaceholder } from '../../placeholders/Userbar.placeholer';
 
 export const Userbar: React.FC = () => {
-  const { data, isLoading, isError } = useUser();
+  const { data, isLoading, isError } = useMe();
 
   if (isLoading) {
     return (

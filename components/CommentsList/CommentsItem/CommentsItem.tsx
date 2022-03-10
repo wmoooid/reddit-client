@@ -1,26 +1,44 @@
-import { AvatarPlaceholder } from '@/components/placeholders/Avatar.placeholder';
 import { CommentsResponseCommentsDataType } from '@/types/comments';
 import { formatDate } from '@/utils/formatDate';
+import { UserAvatar } from './UserAvatar/UserAvatar';
 import styles from './CommentsItem.module.css';
+import React from 'react';
 
 interface CommentsItemProps {
   comment: CommentsResponseCommentsDataType;
 }
 
 export const CommentsItem: React.FC<CommentsItemProps> = ({ children, comment }) => {
+  const [highlight, setHighlight] = React.useState(false);
+
   return (
-    <li key={comment.data.id} className={styles.item}>
-      <div className={styles.info}>
+    <li
+      onMouseEnter={() => {
+        setHighlight(true);
+      }}
+      onMouseLeave={() => {
+        setHighlight(false);
+      }}
+      key={comment.data.id}
+      className={styles.item}>
+      <div className={styles.leftSide}>
         <div className={styles.avatar}>
-          <AvatarPlaceholder name={comment.data.author} />
+          <UserAvatar userId={comment.data.author} />
         </div>
-        <strong className={styles.author}>{comment.data.author}</strong>
-        <small className={styles.created}>{formatDate(comment.data.created)}</small>
+        <div className={highlight ? styles.line_hl : styles.line}></div>
       </div>
-      <p className={styles.body}>{comment.data.body}</p>
-      <div className={styles.replies}>
+      <div className={styles.container}>
+        <div className={styles.rightSide}>
+          <div className={styles.info}>
+            <strong className={styles.author}>{comment.data.author}</strong>
+            <small className={styles.created}>{formatDate(comment.data.created)}</small>
+          </div>
+          <p className={styles.body} dangerouslySetInnerHTML={{ __html: comment.data.body_html }}></p>
+        </div>
         {comment.data.replies?.data?.children.slice(0, -1).map((comment) => (
-          <CommentsItem key={comment.data.id} comment={comment} />
+          <ul key={comment.data.id} className={styles.replies}>
+            <CommentsItem comment={comment} />
+          </ul>
         ))}
       </div>
     </li>
