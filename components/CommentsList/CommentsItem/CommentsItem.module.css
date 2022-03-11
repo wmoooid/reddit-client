@@ -17,6 +17,10 @@
   margin-right: 0.75rem;
 }
 
+.rightSide {
+  margin-bottom: 0.5rem;
+}
+
 .info {
   display: flex;
   align-items: center;
@@ -53,7 +57,7 @@
   font-size: 1rem;
   line-height: 1;
   font-weight: 400;
-  color: var(--accent);
+  color: var(--grey75);
 }
 
 .created {

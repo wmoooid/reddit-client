@@ -1,44 +1,14 @@
-import React from 'react';
-import styles from './UpsCounter.module.css';
-import { usePostContext } from '@/hooks/usePostContext';
 import { formatNumber } from '@/utils/formatNumber';
-import { getCookie } from 'cookies-next';
-import { useSWRConfig } from 'swr';
+import styles from './CommentBar.module.css';
 
-export const UpsCounter: React.FC = () => {
-  const { name, ups, likes } = usePostContext();
+interface CommentBar {
+  ups: number;
+}
 
-  const token = getCookie(`token`);
-
-  async function handleUpvote() {
-    await fetch('https://oauth.reddit.com/api/vote', {
-      method: 'POST',
-      headers: { Authorization: `bearer ${token}` },
-      body: new URLSearchParams({
-        id: `${name}`,
-        dir: '1',
-      }),
-    });
-  }
-
-  async function handleDownvote() {
-    await fetch('https://oauth.reddit.com/api/vote', {
-      method: 'POST',
-      headers: { Authorization: `bearer ${token}` },
-      body: new URLSearchParams({
-        id: `${name}`,
-        dir: '-1',
-      }),
-    });
-  }
-
+export const CommentBar: React.FC<CommentBar> = ({ ups }) => {
   return (
-    <div className={styles.upsCounter}>
-      <button
-        onClick={() => {
-          handleUpvote();
-        }}
-        className={likes ? styles.upsUp_active : styles.upsUp}>
+    <>
+      <button className={styles.upsUp}>
         <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
@@ -49,11 +19,7 @@ export const UpsCounter: React.FC = () => {
         </svg>
       </button>
       <strong className={styles.upsCount}>{formatNumber(ups)}</strong>
-      <button
-        onClick={() => {
-          handleDownvote();
-        }}
-        className={likes === false ? styles.upsDown_active : styles.upsDown}>
+      <button className={styles.upsDown}>
         <svg width='1rem' height='0.5rem' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             fillRule='evenodd'
@@ -63,6 +29,6 @@ export const UpsCounter: React.FC = () => {
           />
         </svg>
       </button>
-    </div>
+    </>
   );
 };

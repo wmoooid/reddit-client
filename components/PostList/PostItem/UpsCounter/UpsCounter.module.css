@@ -7,9 +7,17 @@
 }
 
 .upsUp,
-.upsDown {
+.upsDown,
+.upsUp_active,
+.upsDown_active {
   background: none;
   border: none;
+  cursor: pointer;
+}
+
+.upsUp_active svg path,
+.upsDown_active svg path {
+  fill: var(--accent);
 }
 
 .upsCount {
@@ -21,7 +29,7 @@
 
 .upsUp:hover svg path,
 .upsDown:hover svg path {
-  fill: var(--accent);
+  fill: var(--accent-light);
 }
 
 @media (max-width: 720px) {
