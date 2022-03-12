@@ -1,8 +1,8 @@
 import React from 'react';
+import Head from 'next/head';
 import { PostList } from '@/components/PostList/PostList';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
-import Head from 'next/head';
 
 const Listing: NextPage = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const Listing: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Another Reddit mirror</title>
+        <title>{listing} – Reddit</title>
       </Head>
       <PostList listing={listing} />
     </>
