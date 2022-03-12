@@ -4,7 +4,7 @@ import useSWR from 'swr';
 
 export default function usePost(pid: string | string[] | undefined) {
   const token = getCookie(`token`);
-  const { data, error } = useSWR(
+  const { data, error, mutate } = useSWR(
     [
       `https://oauth.reddit.com/comments/${pid}?raw_json=1`,
       {
@@ -25,5 +25,6 @@ export default function usePost(pid: string | string[] | undefined) {
     comments: comments,
     isLoading: !error && !data,
     isError: error,
+    mutate: mutate,
   };
 }

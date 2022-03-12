@@ -5,12 +5,13 @@ import { formatNumber } from '@/utils/formatNumber';
 import { getCookie } from 'cookies-next';
 import { Icon_Upvote } from '@/components/icons/Icon_Upvote';
 import { Icon_Downvote } from '@/components/icons/Icon_Downvote';
+import { KeyedMutator } from 'swr';
 
 interface UpsCounterProps {
-  isComment?: boolean;
+  mutate: KeyedMutator<any[]>;
 }
 
-export const UpsCounter: React.FC<UpsCounterProps> = ({ isComment = false }) => {
+export const UpsCounter: React.FC<UpsCounterProps> = ({ mutate }) => {
   const { name, ups, likes } = usePostContext();
 
   const token = getCookie(`token`);
@@ -24,6 +25,7 @@ export const UpsCounter: React.FC<UpsCounterProps> = ({ isComment = false }) => 
         dir: '1',
       }),
     });
+    mutate();
   }
 
   async function handleDownvote() {
@@ -35,6 +37,7 @@ export const UpsCounter: React.FC<UpsCounterProps> = ({ isComment = false }) => 
         dir: '-1',
       }),
     });
+    mutate();
   }
 
   return (

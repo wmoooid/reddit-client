@@ -18,7 +18,7 @@ interface PostListContextProps {
 export const PostListContext = React.createContext({} as PostListContextProps);
 
 export const PostList: React.FC<PostListProps> = ({ listing }) => {
-  const { posts, isLoading, isValidating, isError, size, setSize } = useInfiniteListing(listing);
+  const { posts, isLoading, isValidating, isError, size, setSize, mutate } = useInfiniteListing(listing);
 
   const [isTile, setIsTile] = React.useState(true);
 
@@ -37,7 +37,7 @@ export const PostList: React.FC<PostListProps> = ({ listing }) => {
         <ul className={styles.list}>
           {posts.map((post) => (
             <PostProvider key={`${post.data.id}_provider`} value={post.data}>
-              <PostItem key={post.data.id} isTile={isTile} />
+              <PostItem key={post.data.id} isTile={isTile} mutate={mutate} />
               <span className={styles.divider}></span>
             </PostProvider>
           ))}

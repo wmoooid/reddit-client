@@ -49,5 +49,6 @@ export default function useInfiniteListing(listing: string) {
     isError: error,
     size: size,
     setSize: setSize,
+    mutate: mutate,
   };
 }

@@ -4,19 +4,21 @@ import { UpsCounter } from './UpsCounter/UpsCounter';
 import { PostDetails } from './PostDetails/PostDetails';
 import { PostPreview } from './PostPreview/PostPreview';
 import { MenuButton } from './MenuButton/MenuButton';
+import { KeyedMutator } from 'swr';
 
 interface PostItemProps {
   isPostPage?: boolean;
   isTile?: boolean;
+  mutate: KeyedMutator<any[]>;
 }
 
-export const PostItem: React.FC<PostItemProps> = ({ isPostPage = false, isTile = false }) => {
+export const PostItem: React.FC<PostItemProps> = ({ isPostPage = false, isTile = false, mutate }) => {
   if (isTile) {
     return (
       <li className={styles.tileBox}>
         <div className={styles.tileTop}>
           <div className={styles.tileLeft}>
-            <UpsCounter />
+            <UpsCounter mutate={mutate} />
             <span className={styles.tileDivider}></span>
             <PostDetails isTile={isTile} />
           </div>
@@ -34,7 +36,7 @@ export const PostItem: React.FC<PostItemProps> = ({ isPostPage = false, isTile =
     return (
       <section className={styles.boxPage}>
         <div className={styles.topSide}>
-          <UpsCounter />
+          <UpsCounter mutate={mutate} />
           <span className={styles.dividerPage}></span>
           <PostDetails isPostPage={isPostPage} />
         </div>
@@ -45,7 +47,7 @@ export const PostItem: React.FC<PostItemProps> = ({ isPostPage = false, isTile =
   return (
     <li className={styles.box}>
       <div className={styles.leftSide}>
-        <UpsCounter />
+        <UpsCounter mutate={mutate} />
         <span className={styles.divider}></span>
         <PostDetails />
       </div>
