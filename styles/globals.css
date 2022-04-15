@@ -11,7 +11,7 @@ div > video {
     --main: #333333;
     --background: #ffffff;
     --background-op: rgba(255, 255, 255, 0.5);
-    --grey97: #f2f2f7;
+    --grey95: #f2f2f7;
     --grey93: #e8e8ed;
     --grey75: #b8b8bf;
   }
@@ -84,7 +84,7 @@ input {
 }
 
 .container {
-  margin: 4rem auto;
+  margin: 8.5rem auto;
   padding: 0 4rem;
   width: 100%;
   max-width: 72rem;
@@ -96,7 +96,7 @@ input {
 
 @media (max-width: 900px) {
   .container {
-    margin: 2rem auto;
+    margin: 6.5rem auto;
     padding: 0 2rem;
   }
 }
