@@ -16,8 +16,12 @@ export const Header: React.FC = () => {
     function handleScroll() {
       let currentPosition = window.pageYOffset;
 
-      const isScrollDown = currentPosition > prevPosition;
-      isScrollDown ? setIsHide(true) : setIsHide(false);
+      if (currentPosition > 200) {
+        const isScrollDown = currentPosition > prevPosition;
+        isScrollDown ? setIsHide(true) : setIsHide(false);
+      } else {
+        setIsHide(false);
+      }
 
       prevPosition = window.pageYOffset;
     }

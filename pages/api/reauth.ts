@@ -1,14 +1,6 @@
-import Cors from 'cors';
 import fetch from 'node-fetch';
-import initMiddleware from '@/lib/init-middleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { redis } from '@/lib/redis';
-
-const cors = initMiddleware(
-  Cors({
-    methods: ['GET', 'POST', 'OPTIONS'],
-  }),
-);
 
 interface ResponseDataType {
   access_token: string;
@@ -18,12 +10,14 @@ interface ResponseDataType {
   scope: string;
 }
 
+let shouldWait = false;
+let currentToken: string;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await cors(req, res);
-
-  console.log(req.query);
-
-  if (req.query.get) {
+  if (shouldWait) {
+    console.log('OLD TOKEN', currentToken);
+    return res.status(200).json({ access_token: currentToken });
+  } else {
     const REFRESH_TOKEN = await redis.get('REFRESH_TOKEN');
 
     console.log(REFRESH_TOKEN);
@@ -42,14 +36,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         body: form,
       });
       const data = (await response.json()) as ResponseDataType;
-      console.log(response.status);
       redis.set('REFRESH_TOKEN', data['refresh_token']);
+      currentToken = data['access_token'];
+      console.log('NEW TOKEN', currentToken);
+      shouldWait = true;
+      const timeout = setTimeout(() => {
+        shouldWait = false;
+      }, 45 * 60 * 1000);
       return res.status(response.status).json({ access_token: data['access_token'] });
     } catch (error) {
       console.log(error);
     }
-  } else {
-    console.log('BAD REQUEST!');
-    return res.status(400).send(400);
   }
 }

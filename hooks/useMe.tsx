@@ -1,4 +1,4 @@
-import { fetcher } from '@/lib/fetcher';
+import { fetcher, SWR_OPTIONS } from '@/lib/fetcher';
 import { getCookie } from 'cookies-next';
 import useSWR from 'swr';
 
@@ -13,7 +13,7 @@ export default function useMe() {
       },
     ],
     fetcher,
-    { shouldRetryOnError: false },
+    SWR_OPTIONS,
   );
 
   return {

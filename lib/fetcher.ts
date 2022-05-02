@@ -43,11 +43,11 @@ export const SWR_OPTIONS: SWRConfiguration = {
       if (res.status === 200) {
         const data = await res.json();
         setCookies(`token`, `${data['access_token']}`, { expires: new Date(Date.now() + 86400e3) });
-        return;
+        revalidate();
       }
     }
     if (error.status === 404) return;
     if (retryCount >= 5) return;
-    setTimeout(() => revalidate({ retryCount }), 1000);
+    setTimeout(() => revalidate({ retryCount }), 3000);
   },
 };
