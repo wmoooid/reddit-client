@@ -17,23 +17,15 @@ export default function useStoriesList() {
   };
 
   const { subscriptions } = useSubscriptions();
+  const storiesList = new Set();
 
-  const postsList: Array<ListingsResponseChildrenType> = [];
-
-  const subredditsList = new Set();
-
-  const dataArr: Array<ListingResposeRootType> = [];
-
-  subscriptions.forEach(async (subscription) => {
+  subscriptions.map(async (subscription) => {
     const res = await fetch(`${BASE_URL}${subscription.data.url}?${URL_PARAMS}`, GET_PARAMS);
-    const data = await res.json();
-    return data.children;
+    const data: ListingResposeRootType = await res.json();
+    data.data.children.map((item) => (item.data.is_video ? storiesList.add(subscription.data.url) : () => {}));
   });
 
-  // dataArr.forEach((item) => {
-  //   item.data.children.forEach((post) =>
-  //     post.data.is_video ? subredditsList.add(post.data.subreddit_name_prefixed) : () => {},
-  //   );
-  //   console.log(item);
-  // });
+  return {
+    storiesList: storiesList,
+  };
 }
