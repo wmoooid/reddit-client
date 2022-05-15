@@ -1,5 +1,3 @@
-import { TEST } from '@/lib/fetcher';
-import { setCookies } from 'cookies-next';
 import React from 'react';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
