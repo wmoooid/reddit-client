@@ -25,6 +25,8 @@ export const MediaViewer: React.FC<MediaViewerProps> = ({ type = 'preview' }) =>
     setShowOverlay(true);
   }
 
+  if (!preview) return null;
+
   if (type === 'stories') {
     return (
       <Waypoint onEnter={handleEnterStories} onLeave={handleLeaveStories}>
@@ -75,7 +77,7 @@ export const MediaViewer: React.FC<MediaViewerProps> = ({ type = 'preview' }) =>
         <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc?.resolutions[0]?.url})` }}></div>
         <img
           className={styles.previewPage}
-          src={imageSrc.variants.gif ? imageSrc.variants.gif.source.url : imageSrc?.source.url}
+          src={imageSrc?.variants.gif ? imageSrc.variants.gif.source.url : imageSrc?.source.url}
           alt='Post preview'
         />
       </div>
