@@ -3,6 +3,7 @@ import styles from './StoriesList.module.css';
 import useInfiniteListing from '@/hooks/useInfiniteListing';
 import { PostProvider } from '@/hooks/usePostContext';
 import { StoriesItem } from './StoriesItem/StoriesItem';
+import { Waypoint } from 'react-waypoint';
 
 interface StoriesListProps {
   listing: string;
@@ -10,8 +11,11 @@ interface StoriesListProps {
 
 export const StoriesList: React.FC<StoriesListProps> = ({ listing }) => {
   const { posts, isLoading, isValidating, isError, size, setSize } = useInfiniteListing(`/${listing}`);
-
   const storiesList = posts.filter((item) => item.data.is_video);
+
+  function handleEnterViewport() {
+    setSize(size + 1);
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -21,6 +25,11 @@ export const StoriesList: React.FC<StoriesListProps> = ({ listing }) => {
             <StoriesItem />
           </PostProvider>
         ))}
+        <div className={styles.anchorBox}>
+          <Waypoint onEnter={handleEnterViewport}>
+            <div className={styles.anchor}></div>
+          </Waypoint>
+        </div>
       </ul>
     </div>
   );

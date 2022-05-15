@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './StoriesList.module.css';
+import styles from './StoriesItem.module.css';
 import { usePostContext } from '@/hooks/usePostContext';
 import { MediaViewer } from '@/components/MediaViewer/MediaViewer';
 import { UpsCounter } from '@/components/UpsCounter/UpsCounter';
