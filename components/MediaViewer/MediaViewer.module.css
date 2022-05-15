@@ -53,7 +53,7 @@
 /* Stories */
 .wrapperStories {
   align-self: stretch;
-  height: calc(100vh - 8.5rem);
+  height: 100vh;
   position: relative;
   overflow: hidden;
   border-radius: 0.25rem;

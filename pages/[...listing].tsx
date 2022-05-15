@@ -14,7 +14,9 @@ const Listing: NextPage = () => {
       <Head>
         <title>{listing} – Reddit</title>
       </Head>
-      <PostList listing={listing} />
+      <section className={'container'}>
+        <PostList listing={listing} />
+      </section>
     </>
   );
 };

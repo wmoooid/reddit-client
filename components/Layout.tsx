@@ -16,9 +16,7 @@ export const Layout: React.FC = ({ children }) => {
     <LayoutContext.Provider value={{ showSidebar, setShowSidebar }}>
       <Header />
       <Sidebar />
-      <main className={'main'}>
-        <section className={'container'}>{children}</section>
-      </main>
+      <main className={'main'}>{children}</main>
     </LayoutContext.Provider>
   );
 };

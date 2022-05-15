@@ -32,7 +32,7 @@ const PostPage: NextPage = () => {
   }
 
   return (
-    <>
+    <section className={'container'}>
       <Head>
         <title>{post.data ? post.data.title : 'Another Reddit mirror'}</title>
       </Head>
@@ -42,7 +42,7 @@ const PostPage: NextPage = () => {
           <CommentsList />
         </CommentsProvider>
       </PostProvider>
-    </>
+    </section>
   );
 };
 
