@@ -1,15 +1,7 @@
-import Cors from 'cors';
 import fetch from 'node-fetch';
-import initMiddleware from '@/lib/init-middleware';
 import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { redis } from '@/lib/redis';
-
-const cors = initMiddleware(
-  Cors({
-    methods: ['GET', 'POST', 'OPTIONS'],
-  }),
-);
 
 interface ResponseDataType {
   access_token: string;
@@ -20,8 +12,6 @@ interface ResponseDataType {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await cors(req, res);
-
   if (req.query.code) {
     const form = new URLSearchParams({
       grant_type: 'authorization_code',

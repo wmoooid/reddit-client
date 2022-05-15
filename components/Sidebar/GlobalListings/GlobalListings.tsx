@@ -4,10 +4,14 @@ import { Icon_Hot } from '@/components/icons/Icon_Hot';
 import { Icon_New } from '@/components/icons/Icon_New';
 import { Icon_Rising } from '@/components/icons/Icon_Rising';
 import { Icon_Top } from '@/components/icons/Icon_Top';
+import { LayoutContext } from '@/components/Layout';
 import Link from 'next/link';
+import React from 'react';
 import styles from '../Sidebar.module.css';
 
 export const GlobalListings: React.FC = () => {
+  const { setShowSidebar } = React.useContext(LayoutContext);
+
   const GLOBAL_LISTINGS = [
     { name: 'Best', icon: Icon_Best, href: '/best' },
     { name: 'Hot', icon: Icon_Hot, href: '/hot' },
@@ -22,7 +26,11 @@ export const GlobalListings: React.FC = () => {
       <ul className={styles.list}>
         {GLOBAL_LISTINGS.map((item) => (
           <Link key={`${item.href}_${item.name}`} href={item.href} shallow={true}>
-            <li className={styles.item}>
+            <li
+              onClick={() => {
+                setShowSidebar(false);
+              }}
+              className={styles.item}>
               <span className={styles.itemIcon}>
                 <item.icon />
               </span>

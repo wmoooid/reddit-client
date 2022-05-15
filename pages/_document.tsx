@@ -24,6 +24,34 @@ class MyDocument extends Document {
           <meta name='msapplication-config' content='/browserconfig.xml' />
           <meta name='msapplication-TileColor' content='#ffffff' />
           <meta name='theme-color' content='#ffffff' />
+          <style>
+            {`/* Color scheme */
+@media (prefers-color-scheme: light) {
+  :root {
+    --accent: #ff4500;
+    --accent-light: #ffa280;
+    --main: #333333;
+    --background: #ffffff;
+    --background-op: rgba(255, 255, 255, 0.5);
+    --grey97: #f2f2f7;
+    --grey93: #e8e8ed;
+    --grey75: #b8b8bf;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #ff7440;
+    --accent-light: #993c1a;
+    --main: #d0d0d9;
+    --background: #252526;
+    --background-op: rgba(37, 37, 38, 0.5);
+    --grey97: #38383b;
+    --grey93: #3d3d40;
+    --grey75: #626266;
+  }
+}`}
+          </style>
         </Head>
         <body>
           <Main />

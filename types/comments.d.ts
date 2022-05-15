@@ -67,7 +67,7 @@ export type CommentsResponsePostInfoDataType = {
   domain: string;
   allow_live_comments: boolean;
   selftext_html: null;
-  likes: null;
+  likes: boolean | null;
   suggested_sort: null;
   banned_at_utc: null;
   url_overridden_by_dest: string;

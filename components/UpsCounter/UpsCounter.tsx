@@ -5,14 +5,10 @@ import { formatNumber } from '@/utils/formatNumber';
 import { getCookie } from 'cookies-next';
 import { Icon_Upvote } from '@/components/icons/Icon_Upvote';
 import { Icon_Downvote } from '@/components/icons/Icon_Downvote';
-import { KeyedMutator } from 'swr';
 
-interface UpsCounterProps {
-  mutate: KeyedMutator<any[]>;
-}
-
-export const UpsCounter: React.FC<UpsCounterProps> = ({ mutate }) => {
+export const UpsCounter: React.FC = () => {
   const { name, ups, likes } = usePostContext();
+  const [likeState, setLikeState] = React.useState(likes);
 
   const token = getCookie(`token`);
 
@@ -25,7 +21,7 @@ export const UpsCounter: React.FC<UpsCounterProps> = ({ mutate }) => {
         dir: '1',
       }),
     });
-    mutate();
+    setLikeState(true);
   }
 
   async function handleDownvote() {
@@ -37,7 +33,7 @@ export const UpsCounter: React.FC<UpsCounterProps> = ({ mutate }) => {
         dir: '-1',
       }),
     });
-    mutate();
+    setLikeState(false);
   }
 
   return (
@@ -46,7 +42,7 @@ export const UpsCounter: React.FC<UpsCounterProps> = ({ mutate }) => {
         onClick={() => {
           handleUpvote();
         }}
-        className={likes ? styles.upsUp_active : styles.upsUp}>
+        className={likeState ? styles.upsUp_active : styles.upsUp}>
         <Icon_Upvote />
       </button>
       <strong className={styles.upsCount}>{formatNumber(ups)}</strong>
@@ -54,7 +50,7 @@ export const UpsCounter: React.FC<UpsCounterProps> = ({ mutate }) => {
         onClick={() => {
           handleDownvote();
         }}
-        className={likes === false ? styles.upsDown_active : styles.upsDown}>
+        className={likeState === false ? styles.upsDown_active : styles.upsDown}>
         <Icon_Downvote />
       </button>
     </div>

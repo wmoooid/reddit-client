@@ -31,9 +31,3 @@
 .upsDown:hover svg path {
   fill: var(--accent-light);
 }
-
-@media (max-width: 720px) {
-  .upsCounter {
-    display: none;
-  }
-}

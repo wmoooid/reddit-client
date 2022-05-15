@@ -94,11 +94,11 @@
 
 @media (max-width: 720px) {
   .box {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .tileBox {
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
   }
 
   .divider {
@@ -106,15 +106,19 @@
   }
 
   .dividerPage {
-    display: none;
+    margin: 0 1rem;
   }
 
   .tileDivider {
-    display: none;
+    margin: 0 1rem;
   }
 
   .space {
     display: block;
     width: 1.5rem;
+  }
+
+  .smallUps {
+    display: none;
   }
 }

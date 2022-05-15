@@ -1,20 +1,25 @@
-import { fetcher } from '@/lib/fetcher';
+import { BASE_URL, fetcher } from '@/lib/fetcher';
 import { SearchResponse } from '@/types/search';
 import { getCookie } from 'cookies-next';
 import useSWR from 'swr';
 
 export default function useSearch(query: string) {
   const token = getCookie(`token`);
+
+  const URL_PARAMS = new URLSearchParams({
+    raw_json: '1',
+    query: query,
+  });
+
   const { data, error } = useSWR(
     [
-      `https://oauth.reddit.com/api/search_subreddits?raw_json=1&query=${query}`,
+      `${BASE_URL}/api/search_subreddits?${URL_PARAMS}`,
       {
         method: 'POST',
         headers: { Authorization: `bearer ${token}` },
       },
     ],
     fetcher,
-    { shouldRetryOnError: false, revalidateOnFocus: false },
   );
 
   const list: SearchResponse = data?.subreddits || [];

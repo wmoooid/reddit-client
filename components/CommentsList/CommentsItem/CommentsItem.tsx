@@ -13,12 +13,12 @@ export const CommentsItem: React.FC<CommentsItemProps> = ({ children, comment })
   const [highlight, setHighlight] = React.useState(false);
   return (
     <li
-      onMouseEnter={() => {
-        setHighlight(true);
-      }}
-      onMouseLeave={() => {
-        setHighlight(false);
-      }}
+      // onMouseEnter={() => {
+      //   setHighlight(true);
+      // }}
+      // onMouseLeave={() => {
+      //   setHighlight(false);
+      // }}
       key={comment.data.id}
       className={styles.item}>
       <div className={styles.leftSide}>

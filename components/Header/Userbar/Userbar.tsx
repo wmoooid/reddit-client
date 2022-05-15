@@ -31,7 +31,7 @@ export const Userbar: React.FC = () => {
         <span className={styles.userAvatar}>
           <img className={styles.userAvatarImg} src={data.icon_img} alt='User avatar' />
         </span>
-        <span className={styles.userName}>{data.name}</span>
+        {/* <span className={styles.userName}>{data.name}</span> */}
       </a>
     );
   }

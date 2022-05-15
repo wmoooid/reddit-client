@@ -5,7 +5,7 @@ import { Icon_ListView } from '@/components/icons/Icon_ListView';
 import { Icon_TileView } from '@/components/icons/Icon_TileView';
 
 export const TopBar: React.FC = () => {
-  const { listing, setIsTile } = React.useContext(PostListContext);
+  const { listing, isTile, setIsTile } = React.useContext(PostListContext);
 
   return (
     <div className={styles.container}>

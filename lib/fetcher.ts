@@ -21,13 +21,14 @@ export const fetcher = async (...args: FetcherArgs) => {
   return res.json();
 };
 
-export let TOKEN = getCookie(`token`);
+export const TOKEN = () => {
+  return getCookie(`token`);
+};
 
 export const BASE_URL = 'https://oauth.reddit.com';
 
 export const URL_PARAMS = new URLSearchParams({
   raw_json: '1',
-  limit: '10',
 });
 
 export const GET_PARAMS = {
@@ -50,4 +51,5 @@ export const SWR_OPTIONS: SWRConfiguration = {
     if (retryCount >= 5) return;
     setTimeout(() => revalidate({ retryCount }), 3000);
   },
+  revalidateOnFocus: false,
 };

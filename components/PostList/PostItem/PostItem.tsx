@@ -1,61 +1,65 @@
 import React from 'react';
 import styles from './PostItem.module.css';
-import { UpsCounter } from './UpsCounter/UpsCounter';
-import { PostDetails } from './PostDetails/PostDetails';
-import { PostPreview } from './PostPreview/PostPreview';
+import { MediaViewer } from '@/components/MediaViewer/MediaViewer';
+import { UpsCounter } from '@/components/UpsCounter/UpsCounter';
 import { MenuButton } from './MenuButton/MenuButton';
-import { KeyedMutator } from 'swr';
+import { PostDetails } from './PostDetails/PostDetails';
 
 interface PostItemProps {
-  isPostPage?: boolean;
-  isTile?: boolean;
-  mutate: KeyedMutator<any[]>;
+  type: 'page' | 'tile' | 'small';
 }
 
-export const PostItem: React.FC<PostItemProps> = ({ isPostPage = false, isTile = false, mutate }) => {
-  if (isTile) {
+export const PostItem: React.FC<PostItemProps> = ({ type = 'small' }) => {
+  if (type === 'tile') {
     return (
       <li className={styles.tileBox}>
         <div className={styles.tileTop}>
           <div className={styles.tileLeft}>
-            <UpsCounter mutate={mutate} />
+            <UpsCounter />
             <span className={styles.tileDivider}></span>
-            <PostDetails isTile={isTile} />
+            <PostDetails type='tile' />
           </div>
           <div className={styles.rightSide}>
             <span className={styles.space}></span>
             <MenuButton />
           </div>
         </div>
-        <PostPreview isPostPage={isTile} />
+        <MediaViewer type='full' />
       </li>
     );
   }
 
-  if (isPostPage) {
+  if (type === 'page') {
     return (
       <section className={styles.boxPage}>
         <div className={styles.topSide}>
-          <UpsCounter mutate={mutate} />
+          <UpsCounter />
           <span className={styles.dividerPage}></span>
-          <PostDetails isPostPage={isPostPage} />
+          <PostDetails type='page' />
         </div>
-        <PostPreview isPostPage={isPostPage} />
+        <MediaViewer type='full' />
       </section>
     );
   }
-  return (
-    <li className={styles.box}>
-      <div className={styles.leftSide}>
-        <UpsCounter mutate={mutate} />
-        <span className={styles.divider}></span>
-        <PostDetails />
-      </div>
-      <div className={styles.rightSide}>
-        <PostPreview />
-        <span className={styles.space}></span>
-        <MenuButton />
-      </div>
-    </li>
-  );
+
+  if (type === 'small') {
+    return (
+      <li className={styles.box}>
+        <div className={styles.leftSide}>
+          <div className={styles.smallUps}>
+            <UpsCounter />
+          </div>
+          <span className={styles.divider}></span>
+          <PostDetails type='small' />
+        </div>
+        <div className={styles.rightSide}>
+          <MediaViewer type='preview' />
+          {/* <span className={styles.space}></span>
+          <MenuButton /> */}
+        </div>
+      </li>
+    );
+  }
+
+  return null;
 };

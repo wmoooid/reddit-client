@@ -1,3 +1,5 @@
+import { TEST } from '@/lib/fetcher';
+import { setCookies } from 'cookies-next';
 import React from 'react';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -11,12 +13,13 @@ export const LayoutContext = React.createContext({} as LayoutContextProps);
 
 export const Layout: React.FC = ({ children }) => {
   const [showSidebar, setShowSidebar] = React.useState(false);
+
   return (
     <LayoutContext.Provider value={{ showSidebar, setShowSidebar }}>
       <Header />
       <Sidebar />
       <main className={'main'}>
-        <div className={'container'}>{children}</div>
+        <section className={'container'}>{children}</section>
       </main>
     </LayoutContext.Provider>
   );

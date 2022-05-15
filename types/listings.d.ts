@@ -183,8 +183,13 @@ export type ListingsResponseChildrenDataType = {
 export type ListingsResponseType = {
   after: string | null;
   before: string | null;
-  children: ListingsResponseChildrenType;
+  children: ListingsResponseChildrenType[];
   dist: number;
   geo_filter: string | null;
   modhash: string | null;
+};
+
+export type ListingResposeRootType = {
+  kind: 'Listing';
+  data: ListingsResponseType;
 };

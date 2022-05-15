@@ -22,7 +22,7 @@ interface PostPageProps {
 const PostPage: NextPage = () => {
   const router = useRouter();
   const { pid } = router.query;
-  const { post, comments, isLoading, isError, mutate } = usePost(pid) as PostPageProps;
+  const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
   if (isLoading) {
     return <PostPagePlaceholder />;
   }
@@ -37,7 +37,7 @@ const PostPage: NextPage = () => {
         <title>{post.data ? post.data.title : 'Another Reddit mirror'}</title>
       </Head>
       <PostProvider value={post.data}>
-        <PostItem isPostPage={true} mutate={mutate} />
+        <PostItem type='page' />
         <CommentsProvider value={comments}>
           <CommentsList />
         </CommentsProvider>

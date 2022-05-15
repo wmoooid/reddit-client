@@ -6,16 +6,15 @@ import { usePostContext } from '@/hooks/usePostContext';
 import { formatDate } from '@/utils/formatDate';
 
 interface PostDetailsProps {
-  isPostPage?: boolean;
-  isTile?: boolean;
+  type: 'page' | 'tile' | 'small';
 }
 
-export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, isTile = false }) => {
+export const PostDetails: React.FC<PostDetailsProps> = ({ type = 'small' }) => {
   const { title, subreddit_name_prefixed, created, id } = usePostContext();
 
   const router = useRouter();
 
-  if (isTile) {
+  if (type === 'tile') {
     return (
       <div className={styles.postDetailsTile}>
         <Link href={`/post/${id}`} shallow={true}>
@@ -31,7 +30,7 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
     );
   }
 
-  if (isPostPage) {
+  if (type === 'page') {
     return (
       <div className={styles.postDetailsPage}>
         <div className={styles.creatorInfoPage}>
@@ -47,17 +46,21 @@ export const PostDetails: React.FC<PostDetailsProps> = ({ isPostPage = false, is
     );
   }
 
-  return (
-    <div className={styles.postDetails}>
-      <Link href={`/post/${id}`} shallow={true}>
-        <h3 className={styles.title}>{title}</h3>
-      </Link>
-      <div className={styles.creatorInfo}>
-        <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
-          <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+  if (type === 'small') {
+    return (
+      <div className={styles.postDetails}>
+        <Link href={`/post/${id}`} shallow={true}>
+          <h3 className={styles.title}>{title}</h3>
         </Link>
-        <small className={styles.creatorDate}>{formatDate(created)}</small>
+        <div className={styles.creatorInfo}>
+          <Link href={`/${subreddit_name_prefixed}`} shallow={true}>
+            <small className={styles.subreddit}>{subreddit_name_prefixed}</small>
+          </Link>
+          <small className={styles.creatorDate}>{formatDate(created)}</small>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return null;
 };

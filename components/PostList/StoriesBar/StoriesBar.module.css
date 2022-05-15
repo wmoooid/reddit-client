@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+  padding: 1rem;
+
+  overflow-x: scroll;
+  scrollbar-width: thin;
+  border: 1px solid var(--grey93);
+  border-radius: 0.25rem;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.list {
+  display: flex;
+  gap: 1rem;
+}
+
+.item {
+  flex: none;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+}
+
+.itemImage {
+  height: 4rem;
+  width: 4rem;
+
+  border: 1px solid var(--grey93);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.itemName {
+  overflow: hidden;
+  width: 4rem;
+
+  font-size: 0.85rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  color: var(--main);
+}
+
+.item:hover .itemName {
+  opacity: 0.75;
+}

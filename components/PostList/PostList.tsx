@@ -5,6 +5,7 @@ import { PostItem } from './PostItem/PostItem';
 import { PostListPlaceholder } from '../placeholders/PostList.placeholder';
 import { PostProvider } from '@/hooks/usePostContext';
 import { TopBar } from './TopBar/TopBar';
+import { StoriesBar } from './StoriesBar/StoriesBar';
 
 interface PostListProps {
   listing: string;
@@ -12,15 +13,18 @@ interface PostListProps {
 
 interface PostListContextProps {
   listing: string;
+  isTile: boolean;
   setIsTile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const PostListContext = React.createContext({} as PostListContextProps);
 
 export const PostList: React.FC<PostListProps> = ({ listing }) => {
-  const { posts, isLoading, isValidating, isError, size, setSize, mutate } = useInfiniteListing(listing);
+  const { posts, isLoading, isValidating, isError, size, setSize } = useInfiniteListing(listing);
 
   const [isTile, setIsTile] = React.useState(true);
+
+  const isSubreddit = listing.startsWith('/r/');
 
   if (isLoading) {
     return <PostListPlaceholder />;
@@ -32,12 +36,13 @@ export const PostList: React.FC<PostListProps> = ({ listing }) => {
 
   if (posts) {
     return (
-      <PostListContext.Provider value={{ listing, setIsTile }}>
+      <PostListContext.Provider value={{ listing, isTile, setIsTile }}>
+        {!isSubreddit && <StoriesBar />}
         <TopBar />
         <ul className={styles.list}>
           {posts.map((post) => (
             <PostProvider key={`${post.data.id}_provider`} value={post.data}>
-              <PostItem key={post.data.id} isTile={isTile} mutate={mutate} />
+              <PostItem key={post.data.id} type={isTile ? 'tile' : 'small'} />
               <span className={styles.divider}></span>
             </PostProvider>
           ))}

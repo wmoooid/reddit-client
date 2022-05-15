@@ -1,19 +1,24 @@
-import { fetcher, SWR_OPTIONS } from '@/lib/fetcher';
+import { BASE_URL, fetcher } from '@/lib/fetcher';
 import { getCookie } from 'cookies-next';
 import useSWR from 'swr';
 
 export default function usePost(pid: string | string[] | undefined) {
   const token = getCookie(`token`);
+
+  const URL_PARAMS = new URLSearchParams({
+    raw_json: '1',
+    limit: '25',
+  });
+
   const { data, error, mutate } = useSWR(
     [
-      `https://oauth.reddit.com/comments/${pid}?raw_json=1`,
+      `${BASE_URL}/comments/${pid}?${URL_PARAMS}`,
       {
         method: 'get',
         headers: { Authorization: `bearer ${token}` },
       },
     ],
     fetcher,
-    SWR_OPTIONS,
   );
 
   const [postResponse, commentsResponse] = data || [];
