@@ -1,5 +1,4 @@
 import useStoriesList from '@/hooks/useStoriesList';
-import useSubscriptions from '@/hooks/useSubscriptions';
 import Link from 'next/link';
 import React from 'react';
 import styles from './StoriesBar.module.css';
