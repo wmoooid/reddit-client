@@ -32,7 +32,7 @@ export const MediaViewer: React.FC<MediaViewerProps> = ({ type = 'preview' }) =>
       <Waypoint onEnter={handleEnterStories} onLeave={handleLeaveStories}>
         <div className={styles.wrapperStories}>
           <div className={styles.blurBackground} style={{ backgroundImage: `url(${imageSrc?.resolutions[0].url})` }}></div>
-          <img className={styles.previewStories} src={imageSrc?.source.url} alt='Post preview' />
+          {/* <img className={styles.previewStories} src={imageSrc?.source.url} alt='Post preview' /> */}
           <ReactPlayer
             ref={ref}
             className={styles.videoWrapper}

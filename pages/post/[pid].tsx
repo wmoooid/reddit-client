@@ -23,8 +23,13 @@ const PostPage: NextPage = () => {
   const router = useRouter();
   const { pid } = router.query;
   const { post, comments, isLoading, isError } = usePost(pid) as PostPageProps;
+
   if (isLoading) {
-    return <PostPagePlaceholder />;
+    return (
+      <section className={'container'}>
+        <PostPagePlaceholder />
+      </section>
+    );
   }
 
   if (isError) {

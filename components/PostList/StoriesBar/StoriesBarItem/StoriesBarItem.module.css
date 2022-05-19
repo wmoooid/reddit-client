@@ -1,0 +1,34 @@
+.item {
+  flex: none;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+}
+
+.itemImage {
+  height: 4rem;
+  width: 4rem;
+
+  border: 1px solid var(--grey93);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.itemName {
+  overflow: hidden;
+  width: 4rem;
+
+  font-size: 0.85rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  color: var(--main);
+}
+
+.item:hover .itemName {
+  opacity: 0.75;
+}

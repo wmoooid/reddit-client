@@ -1,6 +1,8 @@
 .container {
+  position: relative;
   width: 100%;
-  padding: 1rem;
+  height: 7.5rem;
+  padding: 1rem 0;
 
   overflow-x: scroll;
   scrollbar-width: thin;
@@ -15,6 +17,12 @@
 .list {
   display: flex;
   gap: 1rem;
+  padding: 0 1rem;
+}
+
+.placeholder {
+  position: absolute;
+  top: 1rem;
 }
 
 .item {
@@ -29,15 +37,6 @@
   cursor: pointer;
 }
 
-.itemImage {
-  height: 4rem;
-  width: 4rem;
-
-  border: 1px solid var(--grey93);
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 .itemName {
   overflow: hidden;
   width: 4rem;
@@ -46,8 +45,4 @@
   text-align: center;
   text-overflow: ellipsis;
   color: var(--main);
-}
-
-.item:hover .itemName {
-  opacity: 0.75;
 }

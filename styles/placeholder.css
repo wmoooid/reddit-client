@@ -1,6 +1,7 @@
 .placeholder {
   position: relative;
   overflow: hidden;
+  flex: none;
 }
 
 .placeholder::after {
@@ -64,6 +65,20 @@
   color: white;
   font-weight: 00;
   line-height: 1;
+}
+
+.ph_stories-bar {
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.ph_stories-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 4rem;
 }
 
 /* Basics */

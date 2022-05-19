@@ -1,23 +1,50 @@
-import useStoriesList from '@/hooks/useStoriesList';
+import { Icon_Best_Stories } from '@/components/icons/Icon_Best_Stories';
+import { StoriesBarPlaceholder } from '@/components/placeholders/StoriesBar.placeholder';
+import useSubscriptions from '@/hooks/useSubscriptions';
 import Link from 'next/link';
+
 import React from 'react';
 import styles from './StoriesBar.module.css';
+import { StoriesBarItem } from './StoriesBarItem/StoriesBarItem';
+
+interface StoriesBarContextProps {
+  loadingTable?: LoadingTable;
+  setIsLoadding?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+type LoadingList = Array<boolean>;
+
+interface LoadingTable {
+  [n: string]: boolean;
+}
+
+export const StoriesBarContext = React.createContext<StoriesBarContextProps>({});
 
 export const StoriesBar: React.FC = () => {
-  const { data } = useStoriesList();
+  const { subscriptions } = useSubscriptions();
+  const [isLoading, setIsLoadding] = React.useState(true);
+  const loadingTable = {};
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
-        {data.map((item) => (
-          <Link key={item.data.id} href={`/stories${item.data.url}`} shallow={true}>
+      <StoriesBarContext.Provider value={{ loadingTable, setIsLoadding }}>
+        <ul className={styles.list}>
+          <Link href={`/stories/best`} shallow={true}>
             <li className={styles.item}>
-              <img className={styles.itemImage} src={item.data.community_icon || item.data.icon_img} alt='' />
-              <small className={styles.itemName}>{item.data.display_name}</small>
+              <Icon_Best_Stories />
+              <small className={styles.itemName}>Best</small>
             </li>
           </Link>
-        ))}
-      </ul>
+          {subscriptions.map((item) => (
+            <StoriesBarItem key={item.data.id} item={item} />
+          ))}
+        </ul>
+      </StoriesBarContext.Provider>
+      {isLoading && (
+        <div className={styles.placeholder}>
+          <StoriesBarPlaceholder />
+        </div>
+      )}
     </div>
   );
 };

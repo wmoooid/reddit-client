@@ -24,8 +24,6 @@ export const PostList: React.FC<PostListProps> = ({ listing }) => {
 
   const [isTile, setIsTile] = React.useState(true);
 
-  const isSubreddit = listing.startsWith('/r/');
-
   if (isLoading) {
     return <PostListPlaceholder />;
   }
@@ -37,7 +35,6 @@ export const PostList: React.FC<PostListProps> = ({ listing }) => {
   if (posts) {
     return (
       <PostListContext.Provider value={{ listing, isTile, setIsTile }}>
-        {!isSubreddit && <StoriesBar />}
         <TopBar />
         <ul className={styles.list}>
           {posts.map((post) => (

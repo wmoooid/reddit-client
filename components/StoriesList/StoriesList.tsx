@@ -13,9 +13,9 @@ export const StoriesList: React.FC<StoriesListProps> = ({ listing }) => {
   const { posts, isLoading, isValidating, isError, size, setSize } = useInfiniteListing(`/${listing}`);
   const storiesList = posts.filter((item) => item.data.is_video);
 
-  function handleEnterViewport() {
+  const handleEnterAnchor = () => {
     setSize(size + 1);
-  }
+  };
 
   return (
     <section className={styles.section}>
@@ -27,7 +27,7 @@ export const StoriesList: React.FC<StoriesListProps> = ({ listing }) => {
             </PostProvider>
           ))}
           <div className={styles.anchorBox}>
-            <Waypoint onEnter={handleEnterViewport}>
+            <Waypoint onEnter={handleEnterAnchor}>
               <div className={styles.anchor}></div>
             </Waypoint>
           </div>
