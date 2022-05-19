@@ -17,7 +17,7 @@ const Listing: NextPage = () => {
       </Head>
       <section className={'container'}>
         {!isSubreddit && <StoriesBar />}
-        <div style={{ marginTop: '3rem' }}></div>
+        <div style={{ marginTop: '4rem' }}></div>
         <PostList listing={listing} />
       </section>
     </>

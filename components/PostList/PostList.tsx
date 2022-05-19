@@ -5,7 +5,6 @@ import { PostItem } from './PostItem/PostItem';
 import { PostListPlaceholder } from '../placeholders/PostList.placeholder';
 import { PostProvider } from '@/hooks/usePostContext';
 import { TopBar } from './TopBar/TopBar';
-import { StoriesBar } from './StoriesBar/StoriesBar';
 
 interface PostListProps {
   listing: string;
