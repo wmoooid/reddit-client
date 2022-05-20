@@ -9,8 +9,10 @@ interface CommentsItemProps {
   comment: CommentsResponseCommentsDataType;
 }
 
-export const CommentsItem: React.FC<CommentsItemProps> = ({ children, comment }) => {
+export const CommentsItem: React.FC<CommentsItemProps> = ({ comment }) => {
   const [highlight, setHighlight] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(true);
+
   return (
     <li
       // onMouseEnter={() => {
@@ -25,6 +27,15 @@ export const CommentsItem: React.FC<CommentsItemProps> = ({ children, comment })
         <div className={styles.avatar}>
           <UserAvatar userId={comment.data.author} />
         </div>
+        {comment.data.replies ? (
+          <span
+            onClick={() => {
+              setIsVisible(!isVisible);
+            }}
+            className={styles.hideButton}>
+            {isVisible ? '–' : '+'}
+          </span>
+        ) : null}
         <div className={highlight ? styles.line_hl : styles.line}></div>
       </div>
       <div className={styles.container}>
@@ -32,15 +43,27 @@ export const CommentsItem: React.FC<CommentsItemProps> = ({ children, comment })
           <div className={styles.info}>
             <strong className={styles.author}>{comment.data.author}</strong>
             <small className={styles.created}>{formatDate(comment.data.created)}</small>
+            <CommentBar ups={comment.data.ups} />
           </div>
-          <p className={styles.body} dangerouslySetInnerHTML={{ __html: comment.data.body_html }}></p>
+          {isVisible ? (
+            <p className={styles.body} dangerouslySetInnerHTML={{ __html: comment.data.body_html }}></p>
+          ) : (
+            <p
+              onClick={() => {
+                setIsVisible(!isVisible);
+              }}
+              className={styles.showBranch}>
+              Show branch
+            </p>
+          )}
         </div>
-        <CommentBar ups={comment.data.ups} />
-        {comment.data.replies?.data?.children.slice(0, -1).map((comment) => (
-          <ul key={comment.data.id} className={styles.replies}>
-            <CommentsItem comment={comment} />
-          </ul>
-        ))}
+        {isVisible
+          ? comment.data.replies?.data?.children.slice(0, -1).map((comment) => (
+              <ul key={comment.data.id} className={styles.replies}>
+                <CommentsItem comment={comment} />
+              </ul>
+            ))
+          : null}
       </div>
     </li>
   );

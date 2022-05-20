@@ -6,7 +6,7 @@ export const CommentsList: React.FC = () => {
   const comments = useCommentsContext();
   return (
     <section className={styles.container}>
-      <h3 className={styles.heading}>Comments ({comments.length})</h3>
+      <h3 className={styles.heading}>Comments ({comments.length - 1})</h3>
       <ul className={styles.list}>
         {comments.slice(0, -1).map((comment) => (
           <CommentsItem key={comment.data.id} comment={comment} />

@@ -7,7 +7,7 @@ export default function usePost(pid: string | string[] | undefined) {
 
   const URL_PARAMS = new URLSearchParams({
     raw_json: '1',
-    limit: '25',
+    // limit: '50',
   });
 
   const { data, error, mutate } = useSWR(
