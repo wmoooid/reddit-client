@@ -52,6 +52,11 @@
   user-select: none;
 }
 
+.hideButton:hover {
+  color: var(--background);
+  background-color: var(--grey75);
+}
+
 .line {
   width: 1px;
   height: 100%;
