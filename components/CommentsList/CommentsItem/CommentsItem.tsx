@@ -10,19 +10,10 @@ interface CommentsItemProps {
 }
 
 export const CommentsItem: React.FC<CommentsItemProps> = ({ comment }) => {
-  const [highlight, setHighlight] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState(true);
 
   return (
-    <li
-      // onMouseEnter={() => {
-      //   setHighlight(true);
-      // }}
-      // onMouseLeave={() => {
-      //   setHighlight(false);
-      // }}
-      key={comment.data.id}
-      className={styles.item}>
+    <li key={comment.data.id} className={styles.item}>
       <div className={styles.leftSide}>
         <div className={styles.avatar}>
           <UserAvatar userId={comment.data.author} />
@@ -36,7 +27,7 @@ export const CommentsItem: React.FC<CommentsItemProps> = ({ comment }) => {
             {isVisible ? '–' : '+'}
           </span>
         ) : null}
-        <div className={highlight ? styles.line_hl : styles.line}></div>
+        <div className={styles.line}></div>
       </div>
       <div className={styles.container}>
         <div className={styles.rightSide}>
