@@ -49,7 +49,7 @@ export const SWR_OPTIONS: SWRConfiguration = {
     }
     if (error.status === 404) return;
     if (retryCount >= 5) return;
-    setTimeout(() => revalidate({ retryCount }), 3000);
+    setTimeout(() => revalidate({ retryCount }), 2000);
   },
   revalidateOnFocus: false,
 };
