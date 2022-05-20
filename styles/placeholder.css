@@ -68,9 +68,9 @@
 }
 
 .ph_stories-bar {
-  display: flex;
-  gap: 1rem;
-  padding: 0 1rem;
+  width: 100%;
+  height: 100%;
+  background-color: var(--grey93);
 }
 
 .ph_stories-bar-item {
