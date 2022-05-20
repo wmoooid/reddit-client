@@ -31,3 +31,48 @@
 .upsDown:hover svg path {
   fill: var(--accent-light);
 }
+
+.upsUp:active svg path,
+.upsDown:active svg path {
+  fill: var(--accent);
+}
+
+.upsUp_active,
+.upsDown_active {
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+}
+
+.upsUp_active {
+  animation-name: jumpUp;
+}
+
+.upsDown_active {
+  animation-name: jumpDown;
+}
+
+@keyframes jumpUp {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes jumpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
